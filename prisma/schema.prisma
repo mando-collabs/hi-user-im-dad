@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  email String @unique
+
+  displayName String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Joke Joke[]
+
+  Rating Rating[]
+}
+
+model Joke {
+  id Int @id @default(autoincrement())
+
+  externalId String? // if it came from icanhazdadjokes
+
+  content String
+
+  delivered Boolean @default(false)
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  submitterId Int
+
+  submitter User @relation(fields: [submitterId], references: [id])
+}
+
+model Rating {
+  id Int @id @default(autoincrement())
+
+  score Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+
+  user User @relation(fields: [userId], references: [id])
+}

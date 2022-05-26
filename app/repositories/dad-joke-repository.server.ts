@@ -1,0 +1,20 @@
+import { db } from "~/utils/db.server";
+import Prisma from "@prisma/client";
+
+export interface DadJokeApiResponse {
+  id: string;
+  joke: string;
+  status: number;
+}
+
+export class DadJokeRepository {
+  private DAD_JOKE_API_BASE_URL = "https://icanhazdadjoke.com";
+
+  public generateRandomJoke(): Promise<DadJokeApiResponse> {
+    return fetch(this.DAD_JOKE_API_BASE_URL, {
+      headers: {
+        Accept: "application/json",
+      },
+    }).then((res) => res.json());
+  }
+}
