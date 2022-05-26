@@ -3,7 +3,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "npm run build:css && remix build",
+    "build": "pnpm run build:css && remix build",
     "build:css": "tailwindcss -m -i ./styles/app.css -o ./app/styles/app.css",
     "dev": "remix build && run-p dev:*",
     "dev:node": "cross-env NODE_ENV=development nodemon ./server.js --watch ./server.js",
@@ -11,6 +11,9 @@
     "dev:css": "tailwindcss -w -i ./styles/app.css -o ./app/styles/app.css",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "prepare": "husky install",
+    "db:prepare": "pnpm run db:push && pnpm run db:generate && pnpm run db:seed",
+    "db:generate": "pnpx prisma generate",
+    "db:push": "pnpx prisma db push",
     "db:seed": "node prisma/seed"
   },
   "dependencies": {
