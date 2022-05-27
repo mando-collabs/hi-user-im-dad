@@ -1,5 +1,5 @@
 import { ActionFunction, redirect } from "@remix-run/node";
-import { getSession, commitSession } from "~/session";
+import { getSession, commitSession } from "~/session.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const body = await request.formData();
