@@ -1,5 +1,5 @@
 [build]
-  command = "remix build"
+  command = "pnpm build"
   publish = "public"
 
 [dev]
