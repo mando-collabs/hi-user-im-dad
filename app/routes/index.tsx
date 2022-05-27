@@ -11,19 +11,19 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Index() {
   return (
-    <div className="h-full flex">
-      <div className="flex-1 relative z-0 flex overflow-hidden">
-        <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
+    <div className="flex h-full">
+      <div className="flex overflow-hidden relative z-0 flex-1">
+        <main className="overflow-y-auto relative z-0 flex-1 focus:outline-none xl:order-last">
           {/* Start main area*/}
           <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-            <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" />
+            <div className="h-full rounded-lg border-2 border-gray-200 border-dashed" />
           </div>
           {/* End main area */}
         </main>
-        <aside className="hidden relative xl:order-first xl:flex xl:flex-col flex-shrink-0 max-w-2xl w-full border-r border-gray-200 overflow-y-auto">
+        <aside className="hidden overflow-y-auto relative shrink-0 w-full max-w-2xl border-r border-gray-200 xl:flex xl:flex-col xl:order-first">
           {/* Start secondary column (hidden on smaller screens) */}
           <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-            <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" />
+            <div className="h-full rounded-lg border-2 border-gray-200 border-dashed" />
           </div>
           {/* End secondary column */}
         </aside>
