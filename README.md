@@ -40,6 +40,12 @@ The Netlify CLI starts your app in development mode, rebuilding assets on file c
 npm run dev
 ```
 
+## ENV
+
+```dotenv
+DATABASE_URL="postgresql://${connection-string}"
+```
+
 Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
 
 ## Features Ideas
