@@ -1,9 +1,5 @@
-import { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { getSession } from "~/session.server";
-
-interface LoaderData {
-  username: string;
-}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
