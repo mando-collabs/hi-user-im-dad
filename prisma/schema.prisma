@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id Int @id @default(sequence())
 
   email String @unique
 
@@ -26,7 +26,7 @@ model User {
 }
 
 model Joke {
-  id Int @id @default(autoincrement())
+  id Int @id @default(sequence())
 
   externalId String? // if it came from icanhazdadjokes
 
@@ -44,7 +44,7 @@ model Joke {
 }
 
 model Rating {
-  id Int @id @default(autoincrement())
+  id Int @id @default(sequence())
 
   score Int
 
