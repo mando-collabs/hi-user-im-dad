@@ -1,13 +1,5 @@
 import { LoaderFunction } from "@remix-run/node";
-import {
-  InboxIcon,
-  ArchiveIcon,
-  UserCircleIcon,
-  FlagIcon,
-  BanIcon,
-  PencilAltIcon,
-} from "@heroicons/react/outline";
-import { getSession } from "~/session";
+import { getSession } from "~/session.server";
 
 interface LoaderData {
   username: string;
@@ -20,15 +12,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return { username: session.get("username") };
 };
-
-const sidebarNavigation = [
-  { name: "Open", href: "#", icon: InboxIcon, current: true },
-  { name: "Archive", href: "#", icon: ArchiveIcon, current: false },
-  { name: "Customers", href: "#", icon: UserCircleIcon, current: false },
-  { name: "Flagged", href: "#", icon: FlagIcon, current: false },
-  { name: "Spam", href: "#", icon: BanIcon, current: false },
-  { name: "Drafts", href: "#", icon: PencilAltIcon, current: false },
-];
 
 export default function Index() {
   return (
