@@ -16,7 +16,19 @@ If you have previously installed the Netlify CLI, you should update it to the la
 npm i -g netlify-cli@latest
 ```
 
-2. Prepare the repository
+2. Sign up and log in to Netlify:
+
+```sh
+netlify login
+```
+
+3. Add a `.env` file
+
+```dotenv
+DATABASE_URL=<the_connection_string>
+```
+
+4. Prepare the repository
 
 ```shell
 npm install
@@ -24,12 +36,6 @@ npm install
 npm run db:prepare
 
 npm run build
-```
-
-2. Sign up and log in to Netlify:
-
-```sh
-netlify login
 ```
 
 ## Development
