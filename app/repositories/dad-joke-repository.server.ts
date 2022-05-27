@@ -1,6 +1,3 @@
-import { db } from "~/utils/db.server";
-import Prisma from "@prisma/client";
-
 export interface DadJokeApiResponse {
   id: string;
   joke: string;
