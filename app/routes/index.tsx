@@ -1,12 +1,19 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { getSession } from "~/session.server";
+import { redirect } from "@remix-run/node";
+import { getSession } from "~/utils/session.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
 
   console.log("What is a cookie? ", session);
 
-  return { username: session.get("username") };
+  //TODO check for github token or something?
+  const username = session.get("username");
+  if (username) {
+    return { username: session.get("username") };
+  } else {
+    return redirect(`/login`);
+  }
 };
 
 export default function Index() {

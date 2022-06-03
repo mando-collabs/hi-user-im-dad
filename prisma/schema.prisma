@@ -13,7 +13,7 @@ datasource db {
 model User {
   id Int @id @default(sequence())
 
-  email String @unique
+  externalId String @unique
 
   displayName String
 

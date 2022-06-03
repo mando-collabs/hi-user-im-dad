@@ -1,19 +1,5 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+import { GithubIcon } from "~/components/GithubIcon";
+
 export default function LoginPage() {
   return (
     <>
@@ -23,47 +9,13 @@ export default function LoginPage() {
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900">🪵 in to your account</h2>
 
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    Email address
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      className="block py-2 px-3 w-full placeholder:text-gray-400 rounded-md border border-gray-300 focus:border-teal-500 focus:outline-none focus:ring-teal-500 shadow-sm appearance-none sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/*<div className="space-y-1">*/}
-                {/*  <label htmlFor="password" className="block text-sm font-medium text-gray-700">*/}
-                {/*    Password*/}
-                {/*  </label>*/}
-                {/*  <div className="mt-1">*/}
-                {/*    <input*/}
-                {/*      id="password"*/}
-                {/*      name="password"*/}
-                {/*      type="password"*/}
-                {/*      autoComplete="current-password"*/}
-                {/*      required*/}
-                {/*      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"*/}
-                {/*    />*/}
-                {/*  </div>*/}
-                {/*</div>*/}
-
-                <div>
-                  <button
-                    type="submit"
-                    className="flex justify-center py-2 px-4 w-full text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-sm"
-                  >
-                    Sign in
-                  </button>
-                </div>
+              <form action="/auth/github" method="POST" className="space-y-6">
+                <button
+                  type="submit"
+                  className="flex justify-center py-2 px-4 w-full text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-sm"
+                >
+                  <GithubIcon className="mr-2" /> Sign in with Github
+                </button>
               </form>
             </div>
           </div>
