@@ -4,7 +4,7 @@ export interface DadJokeApiResponse {
   status: number;
 }
 
-export class DadJokeRepository {
+class JokeService {
   private DAD_JOKE_API_BASE_URL = "https://icanhazdadjoke.com";
 
   public generateRandomJoke(): Promise<DadJokeApiResponse> {
