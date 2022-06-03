@@ -1,4 +1,5 @@
 import { GithubIcon } from "~/components/GithubIcon";
+import { Button } from "@justinwaite/tailwind-ui";
 
 export default function LoginPage() {
   return (
@@ -10,12 +11,9 @@ export default function LoginPage() {
 
             <div className="mt-6">
               <form action="/auth/github" method="POST" className="space-y-6">
-                <button
-                  type="submit"
-                  className="flex justify-center py-2 px-4 w-full text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 rounded-md border border-transparent focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 shadow-sm"
-                >
-                  <GithubIcon className="mr-2" /> Sign in with Github
-                </button>
+                <Button className="w-full" type="submit" kind="black" size="lg">
+                  <GithubIcon className="mr-2 w-5 h-5" /> Sign in with Github
+                </Button>
               </form>
             </div>
           </div>

@@ -4,5 +4,5 @@ import { authenticator } from "~/utils/auth.server";
 export let loader: LoaderFunction = () => redirect("/login");
 
 export let action: ActionFunction = ({ request }) => {
-  return authenticator.authenticate("github", request);
+  return authenticator.authenticate("github", request, { successRedirect: "/" });
 };

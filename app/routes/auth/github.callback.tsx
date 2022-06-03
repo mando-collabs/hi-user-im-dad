@@ -1,9 +1,9 @@
-import { LoaderFunction } from "@remix-run/remix";
+import { LoaderFunction } from "@remix-run/node";
 import { authenticator } from "~/utils/auth.server";
 
 export let loader: LoaderFunction = ({ request }) => {
   return authenticator.authenticate("github", request, {
-    successRedirect: "/dashboard",
+    successRedirect: "/",
     failureRedirect: "/login",
   });
 };
