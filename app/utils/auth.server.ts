@@ -6,10 +6,12 @@ import { Authenticator } from "remix-auth";
 import * as sessionStorage from "~/utils/session.server";
 import { User } from "@prisma/client";
 import { getRequiredEnvVariable } from "~/utils/environment";
+import { json } from "@remix-run/node";
 
 // Create an instance of the authenticator, pass a generic with what
 // strategies will return and will store in the session
-export const authenticator = new Authenticator<User & { profileImgUrl: string | null }>(sessionStorage);
+type AuthenticatedUser = User & { profileImgUrl: string | null };
+export const authenticator = new Authenticator<AuthenticatedUser>(sessionStorage);
 
 const host = process.env.HOST || "http://localhost:3000";
 const clientID = getRequiredEnvVariable("GITHUB_CLIENT_ID");
@@ -22,20 +24,26 @@ const gitHubStrategy = new GitHubStrategy(
     callbackURL: `${host}/auth/github/callback`,
   },
   async ({ accessToken, extraParams, profile }) => {
-    // Get the user data from your DB or API using the tokens and profile
-    const user = await db.user.upsert({
-      where: { externalId: profile.id },
-      update: { displayName: profile.displayName },
-      create: {
-        externalId: profile.id,
-        displayName: profile.displayName,
-      },
-    });
+    try {
+      // Get the user data from your DB or API using the tokens and profile
+      const user = await db.user.upsert({
+        where: { externalId: profile.id },
+        update: { displayName: profile.displayName, profileImgUrl: profile.photos[0]?.value },
+        create: {
+          externalId: profile.id,
+          displayName: profile.displayName,
+          profileImgUrl: profile.photos[0]?.value,
+        },
+      });
 
-    return {
-      ...user,
-      profileImgUrl: profile.photos[0]?.value ?? null,
-    };
+      return {
+        ...user,
+        profileImgUrl: profile.photos[0]?.value ?? null,
+      };
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 );
 
@@ -46,3 +54,12 @@ authenticator.use(
   // same strategy multiple times, especially useful for the OAuth2 strategy.
   "github"
 );
+
+export async function assertUser(request: Request): Promise<AuthenticatedUser> {
+  const user = await authenticator.isAuthenticated(request);
+  if (user) {
+    return user;
+  }
+
+  throw json("Unauthorized", { status: 401 });
+}

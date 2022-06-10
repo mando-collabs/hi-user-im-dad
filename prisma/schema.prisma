@@ -20,6 +20,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  profileImgUrl String?
+
   jokes Joke[]
 
   ratings Rating[]

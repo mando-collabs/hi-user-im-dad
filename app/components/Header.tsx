@@ -1,5 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React from "react";
+import { Form } from "@remix-run/react";
+import { Button } from "@justinwaite/tailwind-ui";
+import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
 
 const navigation = [
   { name: "Solutions", href: "#" },
@@ -35,16 +38,17 @@ export const Header: React.FC<HeaderProps> = ({ username, profileImgUrl }) => {
               ))}
             </div>
           </div>
-          <div className="ml-10 space-x-4">
+          <div className="ml-10 space-x-4 flex items-center">
             {profileImgUrl ? (
               <img className="inline-block h-12 w-12 rounded-full" src={profileImgUrl} alt={username} />
             ) : (
-              <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </span>
+              <PlaceholderAvatar className="h-12 w-12" />
             )}
+            <Form method="post" action="/logout">
+              <Button kind="white" type="submit">
+                Logout
+              </Button>
+            </Form>
           </div>
         </div>
         <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
@@ -53,6 +57,11 @@ export const Header: React.FC<HeaderProps> = ({ username, profileImgUrl }) => {
               {link.name}
             </a>
           ))}
+          <Form method="post" action="/logout">
+            <Button kind="white" type="submit">
+              Logout
+            </Button>
+          </Form>
         </div>
       </nav>
     </header>
