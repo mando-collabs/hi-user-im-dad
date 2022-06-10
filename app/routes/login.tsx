@@ -1,4 +1,4 @@
-import { GithubIcon } from "~/components/GithubIcon";
+import { Github } from "@icons-pack/react-simple-icons";
 import { Button } from "@justinwaite/tailwind-ui";
 
 export default function LoginPage() {
@@ -12,7 +12,7 @@ export default function LoginPage() {
             <div className="mt-6">
               <form action="/auth/github" method="POST" className="space-y-6">
                 <Button className="w-full" type="submit" kind="black" size="lg">
-                  <GithubIcon className="mr-2 w-5 h-5" /> Sign in with Github
+                  <Github className="mr-2 w-5 h-5" /> Sign in with Github
                 </Button>
               </form>
             </div>
