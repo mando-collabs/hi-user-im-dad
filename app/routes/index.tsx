@@ -57,7 +57,7 @@ export default function Index() {
             {/* Start main area*/}
             <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center mb-4">
-                <h1 className="text-3xl font-extrabold">A Random Dad Joke</h1>
+                <h1 className="text-3xl font-extrabold text-primary-900">A Random Dad Joke</h1>
                 <RefreshRandomJokeForm />
               </div>
               <RandomJokeForm
@@ -67,10 +67,10 @@ export default function Index() {
                 status={randomJoke.status}
               />
 
-              <h1 className="mt-8 text-3xl font-extrabold">Add Your Own Joke</h1>
+              <h1 className="mt-8 text-3xl font-extrabold text-primary-900">Add Your Own Joke</h1>
               <AddJokeForm className="mt-4" action="/api/jokes" />
 
-              <h1 className="mt-8 text-3xl font-extrabold">My Joke Queue</h1>
+              <h1 className="mt-8 text-3xl font-extrabold text-primary-900">My Joke Queue</h1>
               <div>
                 My Jokes:
                 {myJokes.map((joke) => (
@@ -83,7 +83,7 @@ export default function Index() {
           <aside className="hidden overflow-hidden relative shrink-0 w-full max-w-2xl border-r border-gray-200 xl:flex xl:flex-col xl:order-first">
             {/* Start secondary column (hidden on smaller screens) */}
             <div className="overflow-auto absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-              <h1 className="mb-4 text-3xl font-extrabold">The Joke Queue</h1>
+              <h1 className="mb-4 text-3xl font-extrabold text-primary-900">The Joke Queue</h1>
               <JokeQueue jokes={jokeQueueJokes} />
             </div>
             {/* End secondary column */}

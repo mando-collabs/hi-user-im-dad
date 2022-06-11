@@ -8,7 +8,7 @@ import { PlusIcon } from "@heroicons/react/outline";
 
 export const RandomJokeForm: React.FC<DadJokeApiResponse & FormComponentProps> = ({ joke, id, action, method }) => {
   return (
-    <div className="p-4 text-white bg-primary-800 rounded-md shadow shadow-primary-800">
+    <div className="p-4 text-primary-900 bg-primary-100 rounded-md shadow">
       <ValidatedForm method="post" validator={addJokeFormValidator} action={action}>
         <div className="text-xl font-bold">{joke}</div>
         <input type="hidden" name="content" value={joke} />
