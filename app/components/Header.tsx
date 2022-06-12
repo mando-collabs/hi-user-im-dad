@@ -2,7 +2,7 @@
 import React from "react";
 import { Form, Link } from "@remix-run/react";
 import { Button } from "@justinwaite/tailwind-ui";
-import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
+import { UserMenu } from "~/components/UserMenu";
 
 interface HeaderProps {
   username: string;
@@ -13,32 +13,16 @@ export const Header: React.FC<HeaderProps> = ({ username, profileImgUrl }) => {
   return (
     <header className="bg-white border-b-4 border-primary-600">
       <nav className="px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div className="flex justify-between items-center py-6 w-full border-b border-primary-500 lg:border-none">
+        <div className="flex justify-between items-center py-6 w-full">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <img src="/images/dad-jokes-logo.png" className="mr-4 w-14 h-14" alt="dad jokes" />
-              <h1 className="text-3xl font-extrabold text-white">Hello, User, I'm Dad</h1>
+              <h1 className="text-2xl font-extrabold text-primary-900 sm:text-3xl">Hello, User, I'm Dad</h1>
             </Link>
           </div>
-          <div className="flex items-center ml-10 space-x-4">
-            {profileImgUrl ? (
-              <img className="inline-block w-10 h-10 rounded-full" src={profileImgUrl} alt={username} />
-            ) : (
-              <PlaceholderAvatar className="w-10 h-10" />
-            )}
-            <Form method="post" action="/logout">
-              <Button kind="white" type="submit">
-                Logout
-              </Button>
-            </Form>
+          <div className="flex shrink-0 items-center ml-10 space-x-4">
+            <UserMenu profileImgUrl={profileImgUrl} username={username} />
           </div>
-        </div>
-        <div className="flex flex-wrap justify-center py-4 space-x-6 lg:hidden">
-          <Form method="post" action="/logout">
-            <Button kind="white" type="submit">
-              Logout
-            </Button>
-          </Form>
         </div>
       </nav>
     </header>

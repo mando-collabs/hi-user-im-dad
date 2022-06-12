@@ -20,7 +20,7 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@icons-pack/react-simple-icons": "^4.7.2",
-    "@justinwaite/tailwind-ui": "^1.10.0",
+    "@justinwaite/tailwind-ui": "^1.12.1",
     "@netlify/functions": "^1.0.0",
     "@prisma/client": "^3.14.0",
     "@remix-run/netlify": "^1.5.1",

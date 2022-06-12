@@ -6,9 +6,10 @@ import classNames from "classnames";
 
 export const RefreshRandomJokeForm: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <Form className={classNames("ml-4", className)}>
+    <Form className={classNames("ml-4 shrink-0", className)}>
       <Button leadingIcon={RefreshIcon} kind="secondary" type="submit">
-        Get New Joke
+        <span className="sm:hidden">New Joke</span>
+        <span className="hidden sm:block">Get New Joke</span>
       </Button>
     </Form>
   );
