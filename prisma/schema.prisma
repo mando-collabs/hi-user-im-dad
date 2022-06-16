@@ -36,6 +36,7 @@ model Joke {
 
   delivered Boolean @default(false)
 
+  queued Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,6 +44,8 @@ model Joke {
   submitterId Int
 
   submitter User @relation(fields: [submitterId], references: [id])
+
+  @@index([submitterId, queued])
 }
 
 model Rating {
