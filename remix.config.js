@@ -4,7 +4,8 @@
 module.exports = {
   serverBuildTarget: "netlify",
   server: "./server.js",
-  ignoredRouteFiles: ["**/.*"],
+  // https://stackoverflow.com/questions/12632029/grunt-minimatch-glob-folder-exclusion
+  ignoredRouteFiles: ["**/.*", "**/*.test.tsx?", "**/feature/**/*"],
   devServerPort: 8002,
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
