@@ -3,10 +3,10 @@ const db = new PrismaClient();
 
 async function seed() {
   await db.user.upsert({
-    where: { email: "bryan.muller@rms.com" },
+    where: { externalId: "bryan.muller@rms.com" },
     update: {},
     create: {
-      email: "bryan.muller@rms.com",
+      externalId: "bryan.muller@rms.com",
       displayName: "Bryan Müller",
       jokes: {
         create: [
