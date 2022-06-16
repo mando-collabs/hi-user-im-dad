@@ -26,6 +26,7 @@ netlify login
 
 ```dotenv
 DATABASE_URL=<the_connection_string>
+HOST=<whatever host you're using if it's not localhost:3000>
 ```
 
 4. Prepare the repository
