@@ -1,5 +1,5 @@
 import { MyJoke } from "~/services/joke-service.server";
-import { Button } from "@justinwaite/tailwind-ui";
+import { IconButton } from "@justinwaite/tailwind-ui";
 import { ReplyIcon, TrashIcon } from "@heroicons/react/outline";
 import { Form } from "@remix-run/react";
 
@@ -18,12 +18,13 @@ export const MyJokes: React.FC<MyJokesProps> = ({ jokes }) => {
           {!joke.queued ? (
             <Form method="post" action="api/jokes/queued">
               <input type="hidden" name="id" value={joke.id} />
+              <input type="hidden" name="queued" value="true" />
               <div title="Move to queue">
-                <Button kind="white" size="xs" className="shrink-0" leadingIcon={ReplyIcon} />
+                <IconButton kind="white" size="xs" className="shrink-0" icon={ReplyIcon} />
               </div>
             </Form>
           ) : null}
-          <Button kind="white" size="xs" className="shrink-0" leadingIcon={TrashIcon} />
+          <IconButton kind="white" size="xs" className="shrink-0" icon={TrashIcon} />
         </div>
       ))}
     </div>

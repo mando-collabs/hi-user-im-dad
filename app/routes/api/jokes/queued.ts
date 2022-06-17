@@ -6,11 +6,13 @@ import { redirect } from "@remix-run/node";
 export const action: LoaderFunction = async ({ request }) => {
   const user = await assertUser(request);
 
-  const jokeId = Number((await request.formData()).get("id"));
+  const formData = await request.formData();
+  const jokeId = Number(formData.get("id"));
+  const queued = formData.get("queued") === "true";
 
   const jokeService = new JokeService(user);
 
-  await jokeService.markJokeAsQueued(jokeId);
+  await jokeService.markJokeAsQueued(jokeId, queued);
 
   return redirect("/");
 };

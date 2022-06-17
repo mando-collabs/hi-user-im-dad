@@ -34,9 +34,11 @@ model Joke {
 
   content String
 
-  delivered Boolean @default(false)
+  delivered   Boolean  @default(false)
+  deliveredAt DateTime?
 
-  queued Boolean @default(false)
+  queued   Boolean  @default(false)
+  queuedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

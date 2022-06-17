@@ -1,7 +1,6 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import styles from "./tailwind.css";
-import { ClientProvider } from "~/utils/query-client";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -21,12 +20,10 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <ClientProvider>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </ClientProvider>
+        <Outlet />
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
       </body>
     </html>
   );

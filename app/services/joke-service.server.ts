@@ -16,6 +16,7 @@ export interface JokeQueueJoke {
   username: string;
   profileImgUrl: string | null;
   delivered: boolean;
+  deliveredAt: Date | null;
   isMyJoke: boolean;
   queued: boolean;
 }
@@ -51,7 +52,7 @@ export class JokeService extends BaseService {
     const jokes = await db.joke.findMany({
       where: { queued: true },
       take: 15,
-      orderBy: { createdAt: "desc" },
+      orderBy: { queuedAt: "desc" },
       include: { submitter: { select: { displayName: true, profileImgUrl: true } } },
     });
 
@@ -63,6 +64,7 @@ export class JokeService extends BaseService {
         username: joke.submitter.displayName,
         profileImgUrl: joke.submitter.profileImgUrl,
         delivered: joke.delivered,
+        deliveredAt: joke.deliveredAt,
         queued: joke.queued,
         isMyJoke,
       };
@@ -72,8 +74,8 @@ export class JokeService extends BaseService {
   public getMyJokes(): Promise<MyJoke[]> {
     return db.joke.findMany({
       where: { submitterId: this.user.id, queued: false },
-      take: 10,
-      orderBy: { createdAt: "asc" },
+      take: 50,
+      orderBy: { createdAt: "desc" },
       select: { content: true, id: true, queued: true },
     });
   }
@@ -85,10 +87,10 @@ export class JokeService extends BaseService {
     });
   }
 
-  public async markJokeAsQueued(jokeId: number) {
+  public async markJokeAsQueued(jokeId: number, queued: boolean = true) {
     await db.joke.update({
       where: { id: jokeId },
-      data: { queued: true },
+      data: { queued, queuedAt: queued ? new Date() : null },
     });
   }
 }
