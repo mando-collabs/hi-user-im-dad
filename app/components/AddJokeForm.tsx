@@ -1,6 +1,6 @@
 import React from "react";
 import { RVFButton, RVFTextArea } from "@justinwaite/tailwind-ui";
-import { ValidatedForm } from "remix-validated-form";
+import { useFormContext, ValidatedForm } from "remix-validated-form";
 import { useActionData } from "@remix-run/react";
 import type { Joke } from "@prisma/client";
 
@@ -15,7 +15,13 @@ export const AddJokeForm: React.FC<FormComponentProps & { className?: string }> 
   const newJoke = useActionData<Joke>();
   return (
     <>
-      <ValidatedForm className={className} id="id" method={method} validator={addJokeFormValidator} action={action}>
+      <ValidatedForm
+        className={className}
+        id="new-joke"
+        method={method}
+        validator={addJokeFormValidator}
+        action={action}
+      >
         <RVFTextArea label="Your hilarious joke" name="content" />
         <RVFButton className="mt-2">Add to my queue</RVFButton>
       </ValidatedForm>

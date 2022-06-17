@@ -9,8 +9,7 @@ import { JokeService } from "~/services/joke-service.server";
 import { RandomJokeForm } from "~/components/RandomJokeForm";
 import { JokeQueue } from "~/components/JokeQueue";
 import React from "react";
-import { RefreshRandomJokeForm } from "~/components/RefreshRandomJokeForm";
-import { useRandomJokeQuery } from "~/queries/random-joke.query";
+import { RefreshRandomJokeForm, useRefreshRandomJoke } from "~/components/RefreshRandomJokeForm";
 import { MyJokes } from "~/components/MyJokes";
 
 interface LoaderData {
@@ -45,9 +44,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const { username, profileImgUrl, randomJoke, jokeQueueJokes, myJokes } = useLoaderData<LoaderData>();
+  const { username, profileImgUrl, jokeQueueJokes, myJokes, ...loaderData } = useLoaderData<LoaderData>();
 
-  const { data, refetch } = useRandomJokeQuery({ randomJoke });
+  const { randomJoke, isLoading, refresh } = useRefreshRandomJoke(loaderData.randomJoke);
 
   return (
     <div className="flex flex-col h-full">
@@ -63,23 +62,22 @@ export default function Index() {
             {/* End secondary column */}
           </aside>
 
-          <main className="overflow-y-auto relative z-0 flex-1 focus:outline-none xl:order-last">
+          <main className="overflow-hidden relative z-0 flex-1 focus:outline-none xl:order-last">
             {/* Start main area*/}
-            <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
+            <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8 overflow-y-auto">
               <div className="flex justify-between items-end mb-4">
                 <h1 className="text-2xl font-extrabold text-primary-900 sm:text-3xl">
                   <span className="sm:hidden">Random joke</span>
                   <span className="hidden sm:inline">A Random Dad Joke</span>
                 </h1>
-                <RefreshRandomJokeForm action={refetch} />
+                <RefreshRandomJokeForm action={refresh} isLoading={isLoading} />
               </div>
               <RandomJokeForm
                 action="/api/jokes"
-                id={data?.randomJoke.id ?? randomJoke.id}
-                joke={data?.randomJoke.joke ?? randomJoke.joke}
-                status={data?.randomJoke.status ?? randomJoke.status}
+                id={randomJoke.id}
+                joke={randomJoke.joke}
+                status={randomJoke.status}
               />
-
               <h1 className="mt-8 text-2xl font-extrabold text-primary-900 sm:text-3xl">Add Your Own Joke</h1>
               <AddJokeForm className="mt-4" action="/api/jokes" />
 

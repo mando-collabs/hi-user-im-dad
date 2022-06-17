@@ -1,8 +1,8 @@
 import React from "react";
 import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
 import classNames from "classnames";
-import { Button } from "@justinwaite/tailwind-ui";
-import { CheckIcon } from "@heroicons/react/outline";
+import { Button, IconButton } from "@justinwaite/tailwind-ui";
+import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { Form } from "@remix-run/react";
 
@@ -26,15 +26,32 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes }) => {
             ) : (
               <PlaceholderAvatar className="w-6 h-6" username={joke.username} />
             )}
-            <div className={classNames("ml-2 flex-1", { blur: !joke.delivered && !joke.isMyJoke })}>{joke.content}</div>
-            {joke.isMyJoke && !joke.delivered ? (
-              <Form method="post" action="/api/jokes/delivered">
-                <input type="hidden" name="id" value={joke.id} />
-                <Button kind="white" size="xs" className="shrink-0" leadingIcon={CheckIcon}>
-                  Delivered
-                </Button>
-              </Form>
-            ) : null}
+            <div className="flex flex-col w-full">
+              <div className="flex w-full">
+                <div className={classNames("ml-2 flex-1", { blur: !joke.delivered && !joke.isMyJoke })}>
+                  {joke.content}
+                </div>
+                {joke.isMyJoke && !joke.delivered ? (
+                  <div className="flex space-x-1">
+                    <Form method="post" action="/api/jokes/delivered">
+                      <input type="hidden" name="id" value={joke.id} />
+                      <input type="hidden" name="delivered" value="true" />
+                      <Button kind="white" size="xs" className="shrink-0" leadingIcon={CheckIcon}>
+                        Delivered
+                      </Button>
+                    </Form>
+                    <Form method="post" action="/api/jokes/queued">
+                      <input type="hidden" name="id" value={joke.id} />
+                      <input type="hidden" name="queued" value="false" />
+                      <IconButton kind="white" size="xs" className="shrink-0" icon={ReplyIcon} />
+                    </Form>
+                  </div>
+                ) : null}
+              </div>
+              <span className="text-xs text-gray-500 mt-2 font-medium ml-2">
+                {joke.deliveredAt ? `Delivered at ${new Date(joke.deliveredAt).toLocaleString()}` : null}
+              </span>
+            </div>
           </div>
         ))
       ) : (
