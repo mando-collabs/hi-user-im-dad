@@ -1,3 +1,9 @@
 {
-  "extends": ["config:base", "group:allNonMajor", "group:monorepos"]
+  "extends": ["config:base", "group:allNonMajor", "group:monorepos"],
+  "packageRules": [
+    {
+      "packageNames": ["@types/react", "@types/reactive-native"],
+      "groupName": "react monorepo"
+    }
+  ]
 }
