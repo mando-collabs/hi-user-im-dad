@@ -2,8 +2,9 @@ import { RefreshRandomJokeForm, useRefreshRandomJoke } from "~/components/Refres
 import { RandomJokeForm } from "~/components/RandomJokeForm";
 import { AddJokeForm } from "~/components/AddJokeForm";
 import React from "react";
-import { LoaderFunction } from "@remix-run/node";
-import { DadJokeApiResponse, JokeService } from "~/services/joke-service.server";
+import type { LoaderFunction } from "@remix-run/node";
+import type { DadJokeApiResponse } from "~/services/joke-service.server";
+import { JokeService } from "~/services/joke-service.server";
 import { useLoaderData } from "@remix-run/react";
 
 interface LoaderData {
@@ -40,7 +41,7 @@ export default function AddJoke() {
       {randomJoke ? (
         <RandomJokeForm action="/api/jokes" id={randomJoke.id} joke={randomJoke.joke} status={randomJoke.status} />
       ) : (
-        <div className="bg-red-50 border border-red-500 rounded-md p-4">
+        <div className="p-4 bg-red-50 rounded-md border border-red-500">
           <p className="font-medium text-red-800">Random jokes are unavailable at this time. Sorry ☹️</p>
         </div>
       )}

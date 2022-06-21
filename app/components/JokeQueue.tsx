@@ -49,7 +49,7 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes }) => {
                 ) : null}
               </div>
               {joke.deliveredAt ? (
-                <span className="text-xs text-gray-500 mt-2 font-medium ml-2">
+                <span className="mt-2 ml-2 text-xs font-medium text-gray-500">
                   Delivered at {new Date(joke.deliveredAt).toLocaleString()}
                 </span>
               ) : null}

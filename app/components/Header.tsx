@@ -1,7 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React from "react";
-import { Form, Link } from "@remix-run/react";
-import { Button } from "@justinwaite/tailwind-ui";
+import { Link } from "@remix-run/react";
 import { UserMenu } from "~/components/UserMenu";
 
 interface HeaderProps {

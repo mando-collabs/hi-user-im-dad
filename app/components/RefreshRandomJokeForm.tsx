@@ -2,8 +2,8 @@ import React from "react";
 import { Button } from "@justinwaite/tailwind-ui";
 import { RefreshIcon } from "@heroicons/react/outline";
 import { useFetcher } from "@remix-run/react";
-import { RandomJokeLoaderData } from "~/routes/api/jokes/random";
-import { DadJokeApiResponse } from "~/services/joke-service.server";
+import type { RandomJokeLoaderData } from "~/routes/api/jokes/random";
+import type { DadJokeApiResponse } from "~/services/joke-service.server";
 
 interface RefreshRandomJokeFormProps {
   action: () => void;

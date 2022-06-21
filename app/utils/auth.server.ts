@@ -4,7 +4,7 @@ import { db } from "~/utils/db.server";
 // app/services/auth.server.ts
 import { Authenticator } from "remix-auth";
 import * as sessionStorage from "~/utils/session.server";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { getRequiredEnvVariable } from "~/utils/environment";
 import { json } from "@remix-run/node";
 

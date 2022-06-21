@@ -24,7 +24,7 @@ export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
         <select
           id="tabs"
           name="tabs"
-          className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
+          className="block py-2 pr-10 pl-3 w-full text-base rounded-md border-gray-300 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
           defaultValue={tabs.find((tab) => tab.current)?.name}
         >
           {tabs.map((tab) => (
@@ -34,7 +34,7 @@ export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
       </div>
       <div className="hidden sm:block">
         <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+          <nav className="flex -mb-px space-x-8" aria-label="Tabs">
             {tabs.map((tab) => (
               <Link
                 key={tab.name}
