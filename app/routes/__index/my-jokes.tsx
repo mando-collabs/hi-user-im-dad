@@ -22,5 +22,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function MyJokesTab() {
   const { myJokes } = useLoaderData<LoaderData>();
-  return <MyJokes jokes={myJokes} />;
+  return (
+    <div>
+      {myJokes.length ? (
+        <MyJokes jokes={myJokes} />
+      ) : (
+        <div className="p-4 text-gray-500">You don't have any jokes yet.</div>
+      )}
+    </div>
+  );
 }
