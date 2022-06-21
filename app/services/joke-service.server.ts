@@ -88,6 +88,10 @@ export class JokeService extends BaseService {
     });
   }
 
+  public getMyJokesCount(): Promise<number> {
+    return db.joke.count({ where: { submitterId: this.user.id, queued: false } });
+  }
+
   public async markJokeAsDelivered(jokeId: number) {
     await db.joke.update({
       where: { id: jokeId },
