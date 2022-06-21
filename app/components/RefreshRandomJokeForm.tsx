@@ -11,7 +11,7 @@ interface RefreshRandomJokeFormProps {
   isLoading?: boolean;
 }
 
-export function useRefreshRandomJoke(initialData: DadJokeApiResponse) {
+export function useRefreshRandomJoke(initialData: DadJokeApiResponse | null) {
   const randomJokeFetcher = useFetcher<RandomJokeLoaderData>();
   const isLoading = randomJokeFetcher.state === "loading";
   const randomJoke = randomJokeFetcher.data?.randomJoke ?? initialData;
