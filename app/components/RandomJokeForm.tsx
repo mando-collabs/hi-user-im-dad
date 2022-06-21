@@ -1,6 +1,6 @@
 import React from "react";
 import type { DadJokeApiResponse } from "~/services/joke-service.server";
-import { RVFButton } from "@justinwaite/tailwind-ui";
+import { RVFButton } from "@mando-collabs/tailwind-ui";
 import { addJokeFormValidator } from "~/form-schemas/joke-schemas";
 import { ValidatedForm } from "remix-validated-form";
 import type { FormComponentProps } from "~/types/FormComponentProps";

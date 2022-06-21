@@ -1,5 +1,5 @@
 import React from "react";
-import { RVFButton, RVFTextArea } from "@justinwaite/tailwind-ui";
+import { RVFButton, RVFTextArea } from "@mando-collabs/tailwind-ui";
 import { ValidatedForm } from "remix-validated-form";
 import { useActionData } from "@remix-run/react";
 import type { Joke } from "@prisma/client";

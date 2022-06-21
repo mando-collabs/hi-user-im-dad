@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@justinwaite/tailwind-ui";
+import { Button } from "@mando-collabs/tailwind-ui";
 import { RefreshIcon } from "@heroicons/react/outline";
 import { useFetcher } from "@remix-run/react";
 import type { RandomJokeLoaderData } from "~/routes/api/jokes/random";

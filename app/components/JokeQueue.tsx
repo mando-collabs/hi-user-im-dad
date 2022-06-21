@@ -1,7 +1,7 @@
 import React from "react";
 import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
 import classNames from "classnames";
-import { Button, IconButton } from "@justinwaite/tailwind-ui";
+import { Button, IconButton } from "@mando-collabs/tailwind-ui";
 import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { Form } from "@remix-run/react";

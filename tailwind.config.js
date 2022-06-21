@@ -1,7 +1,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  content: ["./app/**/*.{js,ts,jsx,tsx}", "./node_modules/@justinwaite/tailwind-ui/dist/**.*.js"],
+  content: ["./app/**/*.{js,ts,jsx,tsx}", "./node_modules/@mando-collabs/tailwind-ui/dist/**.*.js"],
   theme: {
     extend: {
       colors: {
