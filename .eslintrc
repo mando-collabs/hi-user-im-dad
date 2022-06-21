@@ -1,4 +1,9 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node", "plugin:tailwindcss/recommended"],
+  "extends": [
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/node",
+    "plugin:tailwindcss/recommended",
+    "plugin:prettier/recommended"
+  ],
   "plugins": ["tailwindcss"]
 }
