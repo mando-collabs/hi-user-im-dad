@@ -15,7 +15,7 @@ import { MyJokes } from "~/components/MyJokes";
 interface LoaderData {
   username: string;
   profileImgUrl: string | null;
-  randomJoke: DadJokeApiResponse;
+  randomJoke: DadJokeApiResponse | null;
   jokeQueueJokes: JokeQueueJoke[];
   myJokes: MyJoke[];
 }
@@ -28,7 +28,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const jokeService = new JokeService(user);
-  const randomJoke = await JokeService.generateRandomJoke();
+  let randomJoke: DadJokeApiResponse | null = null;
+  try {
+    randomJoke = await JokeService.generateRandomJoke();
+  } catch (err) {
+    console.error("Fetching random joke failed", err);
+  }
   const jokeQueueJokes = await jokeService.getJokeQueueJokes();
   const myJokes = await jokeService.getMyJokes();
 
@@ -72,12 +77,18 @@ export default function Index() {
                 </h1>
                 <RefreshRandomJokeForm action={refresh} isLoading={isLoading} />
               </div>
-              <RandomJokeForm
-                action="/api/jokes"
-                id={randomJoke.id}
-                joke={randomJoke.joke}
-                status={randomJoke.status}
-              />
+              {randomJoke ? (
+                <RandomJokeForm
+                  action="/api/jokes"
+                  id={randomJoke.id}
+                  joke={randomJoke.joke}
+                  status={randomJoke.status}
+                />
+              ) : (
+                <div className="bg-red-50 border border-red-500 rounded-md p-4">
+                  <p className="font-medium text-red-800">Random jokes are unavailable at this time. Sorry ☹️</p>
+                </div>
+              )}
               <h1 className="mt-8 text-2xl font-extrabold text-primary-900 sm:text-3xl">Add Your Own Joke</h1>
               <AddJokeForm className="mt-4" action="/api/jokes" />
 

@@ -30,12 +30,20 @@ export interface MyJoke {
 export class JokeService extends BaseService {
   private static DAD_JOKE_API_BASE_URL = "https://icanhazdadjoke.com";
 
-  public static generateRandomJoke(): Promise<DadJokeApiResponse> {
-    return fetch(this.DAD_JOKE_API_BASE_URL, {
+  public static async generateRandomJoke(): Promise<DadJokeApiResponse> {
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => abortController.abort(), 3000);
+
+    const response = await fetch(this.DAD_JOKE_API_BASE_URL, {
       headers: {
         Accept: "application/json",
       },
-    }).then((res) => res.json());
+      signal: abortController.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    return await response.json();
   }
 
   public createJoke(joke: { content: string; externalId?: string }): Promise<Joke> {
