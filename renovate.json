@@ -2,7 +2,7 @@
   "extends": ["config:base", "group:allNonMajor", "group:monorepos"],
   "packageRules": [
     {
-      "packageNames": ["@types/react", "@types/reactive-native"],
+      "packageNames": ["@types/react", "@types/react-dom"],
       "groupName": "react monorepo"
     }
   ]
