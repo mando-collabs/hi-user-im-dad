@@ -16,7 +16,7 @@ export const MyJokes: React.FC<MyJokesProps> = ({ jokes }) => {
         <div key={joke.id} className="flex items-start py-2 px-4 text-gray-700 rounded-md border space-x-2">
           <div className="flex-1">{joke.content}</div>
           {!joke.queued ? (
-            <Form method="post" action="api/jokes/queued">
+            <Form method="post" action="/api/jokes/queued">
               <input type="hidden" name="id" value={joke.id} />
               <input type="hidden" name="queued" value="true" />
               <div title="Move to queue">
