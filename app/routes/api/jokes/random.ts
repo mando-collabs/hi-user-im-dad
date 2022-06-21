@@ -10,7 +10,9 @@ export interface RandomJokeLoaderData {
 export const loader: LoaderFunction = async ({ request }) => {
   await assertUser(request);
 
-  const randomJoke = await JokeService.generateRandomJoke();
-
-  return { randomJoke };
+  try {
+    return await JokeService.generateRandomJoke();
+  } catch (err) {
+    return null;
+  }
 };
