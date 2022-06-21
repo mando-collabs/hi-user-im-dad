@@ -1,0 +1,4 @@
+{
+  "*.{ts,tsx,js,jsx}": "npm run lint:js:fix",
+  "*.{css,html,json}": "npx prettier --write"
+}
