@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { useLocation } from "react-router";
-import { Link, useNavigate } from "@remix-run/react";
+import { Link, useNavigate, useLocation } from "@remix-run/react";
 
 export interface TabsProps {
   myJokesCount: number;
