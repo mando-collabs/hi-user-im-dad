@@ -25,7 +25,7 @@ export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
           id="tabs"
           name="tabs"
           className="block py-2 pr-10 pl-3 w-full text-base rounded-md border-gray-300 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-          defaultValue={tabs.find((tab) => tab.current)?.name}
+          value={tabs.find((tab) => tab.current)?.name}
           onChange={(e) => {
             const tab = tabs.find((tab) => tab.name === e.target.value);
             tab && navigate(tab.href);
