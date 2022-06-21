@@ -1,5 +1,6 @@
-import { LoaderFunction } from "@remix-run/node";
-import { JokeService, MyJoke } from "~/services/joke-service.server";
+import type { LoaderFunction } from "@remix-run/node";
+import type { MyJoke } from "~/services/joke-service.server";
+import { JokeService } from "~/services/joke-service.server";
 import { assertUser } from "~/utils/auth.server";
 import { useLoaderData } from "@remix-run/react";
 import { MyJokes } from "~/components/MyJokes";

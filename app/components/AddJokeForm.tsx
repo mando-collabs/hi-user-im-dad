@@ -1,6 +1,6 @@
 import React from "react";
 import { RVFButton, RVFTextArea } from "@justinwaite/tailwind-ui";
-import { useFormContext, ValidatedForm } from "remix-validated-form";
+import { ValidatedForm } from "remix-validated-form";
 import { useActionData } from "@remix-run/react";
 import type { Joke } from "@prisma/client";
 

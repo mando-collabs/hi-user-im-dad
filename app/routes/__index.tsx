@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { authenticator } from "~/utils/auth.server";
-import { Outlet, useLoaderData, useLocation, useTransition } from "@remix-run/react";
+import { Outlet, useLoaderData, useTransition } from "@remix-run/react";
 import { Header } from "~/components/Header";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { JokeService } from "~/services/joke-service.server";
@@ -58,7 +58,7 @@ export default function __index() {
 
           <main className="overflow-hidden relative z-0 flex-1 focus:outline-none xl:order-last">
             {/* Start main area*/}
-            <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8 overflow-y-auto">
+            <div className="overflow-y-auto absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
               <Tabs myJokesCount={myJokesCount} />
 
               <div className="mt-4">{type === "normalLoad" && state === "loading" ? <PageLoader /> : <Outlet />}</div>

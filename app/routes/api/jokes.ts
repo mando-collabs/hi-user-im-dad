@@ -1,6 +1,8 @@
-import { ActionFunction, redirect } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { assertUser } from "~/utils/auth.server";
-import { validationError, Validator } from "remix-validated-form";
+import type { Validator } from "remix-validated-form";
+import { validationError } from "remix-validated-form";
 import { addJokeFormValidator } from "~/form-schemas/joke-schemas";
 import { JokeService } from "~/services/joke-service.server";
 
