@@ -22,7 +22,7 @@
   "dependencies": {
     "@heroicons/react": "1.0.6",
     "@icons-pack/react-simple-icons": "4.7.2",
-    "@mando-collabs/tailwind-ui": "^1.15.0",
+    "@mando-collabs/tailwind-ui": "^1.15.2",
     "@netlify/functions": "1.0.0",
     "@prisma/client": "3.15.2",
     "@remix-run/netlify": "1.6.0",
