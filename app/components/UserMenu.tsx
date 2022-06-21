@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "@justinwaite/tailwind-ui";
+import { Dropdown } from "@mando-collabs/tailwind-ui";
 import { Form } from "@remix-run/react";
 import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
 

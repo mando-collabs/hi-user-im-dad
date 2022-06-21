@@ -1,5 +1,5 @@
 import type { MyJoke } from "~/services/joke-service.server";
-import { IconButton } from "@justinwaite/tailwind-ui";
+import { IconButton } from "@mando-collabs/tailwind-ui";
 import { ReplyIcon, TrashIcon } from "@heroicons/react/outline";
 import { Form } from "@remix-run/react";
 

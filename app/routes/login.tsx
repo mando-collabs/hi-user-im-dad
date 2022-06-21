@@ -1,5 +1,5 @@
 import { Github } from "@icons-pack/react-simple-icons";
-import { Button } from "@justinwaite/tailwind-ui";
+import { Button } from "@mando-collabs/tailwind-ui";
 
 export default function LoginPage() {
   return (
