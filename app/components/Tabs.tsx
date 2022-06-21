@@ -1,13 +1,14 @@
 import classNames from "classnames";
 import React from "react";
 import { useLocation } from "react-router";
-import { Link } from "@remix-run/react";
+import { Link, useNavigate } from "@remix-run/react";
 
 export interface TabsProps {
   myJokesCount: number;
 }
 
 export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const tabs: { name: string; href: string; count?: number; current: boolean }[] = [
     { name: "Add a Joke", href: "/add-joke", current: pathname.includes("add-joke") },
@@ -26,6 +27,10 @@ export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
           name="tabs"
           className="block py-2 pr-10 pl-3 w-full text-base rounded-md border-gray-300 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
           defaultValue={tabs.find((tab) => tab.current)?.name}
+          onChange={(e) => {
+            const tab = tabs.find((tab) => tab.name === e.target.value);
+            tab && navigate(tab.href);
+          }}
         >
           {tabs.map((tab) => (
             <option key={tab.name}>{tab.name}</option>
