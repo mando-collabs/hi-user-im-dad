@@ -95,7 +95,7 @@ export class JokeService extends BaseService {
   public async markJokeAsDelivered(jokeId: number) {
     await db.joke.update({
       where: { id: jokeId },
-      data: { delivered: true },
+      data: { delivered: true, deliveredAt: new Date() },
     });
   }
 
