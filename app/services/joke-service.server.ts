@@ -24,7 +24,6 @@ export interface JokeQueueJoke {
 export interface MyJoke {
   id: number;
   content: string;
-  queued: boolean;
   createdAt: string;
 }
 
@@ -85,7 +84,7 @@ export class JokeService extends BaseService {
       where: { submitterId: this.user.id, queued: false },
       take: 50,
       orderBy: { createdAt: "desc" },
-      select: { content: true, id: true, queued: true, createdAt: true },
+      select: { content: true, id: true, createdAt: true },
     });
 
     return myJokes.map((joke) => ({ ...joke, createdAt: joke.createdAt.toISOString() }));
@@ -107,5 +106,15 @@ export class JokeService extends BaseService {
       where: { id: jokeId },
       data: { queued, queuedAt: queued ? new Date() : null },
     });
+  }
+
+  public async deleteJoke(jokeId: number): Promise<void> {
+    const joke = await db.joke.findUnique({ where: { id: jokeId } });
+
+    if (joke?.submitterId !== this.user.id) {
+      throw new Error("Users are only allowed to delete their own jokes!");
+    }
+
+    await db.joke.delete({ where: { id: jokeId } });
   }
 }
