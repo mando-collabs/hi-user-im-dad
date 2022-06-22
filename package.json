@@ -25,9 +25,9 @@
     "@mando-collabs/tailwind-ui": "^1.15.2",
     "@netlify/functions": "1.0.0",
     "@prisma/client": "3.15.2",
-    "@remix-run/netlify": "1.6.0",
-    "@remix-run/node": "1.6.0",
-    "@remix-run/react": "1.6.0",
+    "@remix-run/netlify": "1.6.1",
+    "@remix-run/node": "1.6.1",
+    "@remix-run/react": "1.6.1",
     "@remix-validated-form/with-zod": "2.0.1",
     "@travi/any": "2.1.2",
     "classnames": "2.3.1",
@@ -41,8 +41,8 @@
     "zod-form-data": "1.2.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "1.6.0",
-    "@remix-run/eslint-config": "1.6.0",
+    "@remix-run/dev": "1.6.1",
+    "@remix-run/eslint-config": "1.6.1",
     "@tailwindcss/forms": "0.5.2",
     "@types/react": "17.0.47",
     "@types/react-dom": "17.0.17",
