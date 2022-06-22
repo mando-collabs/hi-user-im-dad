@@ -25,6 +25,7 @@ export interface MyJoke {
   id: number;
   content: string;
   queued: boolean;
+  createdAt: string;
 }
 
 export class JokeService extends BaseService {
@@ -79,13 +80,15 @@ export class JokeService extends BaseService {
     });
   }
 
-  public getMyJokes(): Promise<MyJoke[]> {
-    return db.joke.findMany({
+  public async getMyJokes(): Promise<MyJoke[]> {
+    const myJokes = await db.joke.findMany({
       where: { submitterId: this.user.id, queued: false },
       take: 50,
       orderBy: { createdAt: "desc" },
-      select: { content: true, id: true, queued: true },
+      select: { content: true, id: true, queued: true, createdAt: true },
     });
+
+    return myJokes.map((joke) => ({ ...joke, createdAt: joke.createdAt.toISOString() }));
   }
 
   public getMyJokesCount(): Promise<number> {

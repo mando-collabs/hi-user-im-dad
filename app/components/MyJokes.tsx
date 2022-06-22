@@ -14,7 +14,10 @@ export const MyJokes: React.FC<MyJokesProps> = ({ jokes }) => {
     <div className="space-y-4">
       {jokes.map((joke) => (
         <div key={joke.id} className="flex items-start py-2 px-4 space-x-2 text-gray-700 rounded-md border">
-          <div className="flex-1">{joke.content}</div>
+          <div className="flex flex-col flex-1">
+            <p>{joke.content}</p>
+            <span className="text-xs font-medium text-gray-500">{new Date(joke.createdAt).toLocaleString()}</span>
+          </div>
           {!joke.queued ? (
             <Form method="post" action="/api/jokes/queued">
               <input type="hidden" name="id" value={joke.id} />
