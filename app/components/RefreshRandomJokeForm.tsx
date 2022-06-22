@@ -14,7 +14,7 @@ interface RefreshRandomJokeFormProps {
 export function useRefreshRandomJoke(initialData: DadJokeApiResponse | null) {
   const randomJokeFetcher = useFetcher<RandomJokeLoaderData>();
   const isLoading = randomJokeFetcher.state === "loading";
-  const randomJoke = randomJokeFetcher.data?.randomJoke ?? initialData;
+  const randomJoke = randomJokeFetcher.data ?? initialData;
   const refresh = () => randomJokeFetcher.load("/api/jokes/random");
   return { isLoading, randomJoke, refresh };
 }
