@@ -5,6 +5,7 @@ import { Button, IconButton } from "@mando-collabs/tailwind-ui";
 import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { Form } from "@remix-run/react";
+import { JokeRatingForm } from "~/components/JokeRatingForm";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
@@ -53,6 +54,7 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes }) => {
                   Delivered at {new Date(joke.deliveredAt).toLocaleString()}
                 </span>
               ) : null}
+              {!joke.isMyJoke && joke.delivered && <JokeRatingForm jokeId={joke.id} />}
             </div>
           </div>
         ))
