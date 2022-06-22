@@ -4,13 +4,23 @@ import classNames from "classnames";
 import { Button, IconButton } from "@mando-collabs/tailwind-ui";
 import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
-import { Form } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
+import type { QueuedJokesLoaderData } from "~/routes/api/jokes/queued";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
 }
 
-export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes }) => {
+function useFetchJokesQueue(initialJokes: JokeQueueJoke[]) {
+  const fetcher = useFetcher<QueuedJokesLoaderData>();
+  const jokes = fetcher.data?.jokes ?? initialJokes;
+  const refresh = () => fetcher.load("/api/jokes/random");
+  return { state: fetcher.state, jokes, refresh };
+}
+
+export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes }) => {
+  const { jokes } = useFetchJokesQueue(initialJokes);
+
   return (
     <div className="space-y-4">
       {jokes.length ? (
