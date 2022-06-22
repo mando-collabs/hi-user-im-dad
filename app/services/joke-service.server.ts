@@ -109,12 +109,6 @@ export class JokeService extends BaseService {
   }
 
   public async deleteJoke(jokeId: number): Promise<void> {
-    const joke = await db.joke.findUnique({ where: { id: jokeId } });
-
-    if (joke?.submitterId !== this.user.id) {
-      throw new Error("Users are only allowed to delete their own jokes!");
-    }
-
-    await db.joke.delete({ where: { id: jokeId } });
+    await db.joke.deleteMany({ where: { submitterId: this.user.id, id: jokeId } });
   }
 }
