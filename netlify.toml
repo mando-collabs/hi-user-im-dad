@@ -5,6 +5,9 @@
 [build.environment]
   NPM_CONFIG_USERCONFIG="./config/.npmrc"
 
+[context.production]
+  command = "npm run build && npm run db:push"
+
 [dev]
   command = "remix watch"
   port = 3000
