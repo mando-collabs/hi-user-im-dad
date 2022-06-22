@@ -6,20 +6,33 @@ import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { Form, useFetcher } from "@remix-run/react";
 import type { QueuedJokesLoaderData } from "~/routes/api/jokes/queued";
+import { usePusherEvent } from "~/hooks/use-pusher-event";
+import type { JokeEventMessage } from "~/types/JokeEvent";
+import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
+  userId: number;
 }
 
 function useFetchJokesQueue(initialJokes: JokeQueueJoke[]) {
   const fetcher = useFetcher<QueuedJokesLoaderData>();
   const jokes = fetcher.data?.jokes ?? initialJokes;
-  const refresh = () => fetcher.load("/api/jokes/random");
+  const refresh = () => fetcher.load("/api/jokes/queued");
   return { state: fetcher.state, jokes, refresh };
 }
 
-export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes }) => {
-  const { jokes } = useFetchJokesQueue(initialJokes);
+export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userId }) => {
+  const { jokes, refresh } = useFetchJokesQueue(initialJokes);
+
+  usePusherEvent({ channelName: JOKES_CHANNEL }, (event: JokeEvent | string, message: JokeEventMessage) => {
+    if (message.userId === userId) return;
+
+    if (Object.keys(JokeEvent).includes(event)) {
+      console.log("refreshing joke queue", event, message);
+      refresh();
+    }
+  });
 
   return (
     <div className="space-y-4">

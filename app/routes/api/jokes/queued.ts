@@ -3,6 +3,8 @@ import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { JokeService } from "~/services/joke-service.server";
 import { assertUser } from "~/utils/auth.server";
 import { redirect } from "@remix-run/node";
+import { pusher } from "~/utils/pusher.server";
+import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
 
 export interface QueuedJokesLoaderData {
   jokes: JokeQueueJoke[];
@@ -29,6 +31,9 @@ export const action: ActionFunction = async ({ request }) => {
   const jokeService = new JokeService(user);
 
   await jokeService.markJokeAsQueued(jokeId, queued);
+
+  const pusherEvent: JokeEvent = queued ? JokeEvent.queued : JokeEvent.dequeued;
+  await pusher.trigger(JOKES_CHANNEL, pusherEvent, { jokeId, userId: user.id });
 
   return redirect("/");
 };
