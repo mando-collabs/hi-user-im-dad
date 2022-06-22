@@ -4,7 +4,7 @@ import { ValidatedForm } from "remix-validated-form";
 import { useActionData } from "@remix-run/react";
 import type { Joke } from "@prisma/client";
 
-import { addJokeFormValidator } from "~/form-schemas/joke-schemas";
+import { addJokeFormValidator } from "~/forms/joke-schemas";
 import type { FormComponentProps } from "~/types/FormComponentProps";
 
 export const AddJokeForm: React.FC<FormComponentProps & { className?: string }> = ({

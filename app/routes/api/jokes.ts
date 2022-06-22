@@ -3,7 +3,7 @@ import { redirect } from "@remix-run/node";
 import { assertUser } from "~/utils/auth.server";
 import type { Validator } from "remix-validated-form";
 import { validationError } from "remix-validated-form";
-import { addJokeFormValidator } from "~/form-schemas/joke-schemas";
+import { addJokeFormValidator } from "~/forms/joke-schemas";
 import { JokeService } from "~/services/joke-service.server";
 
 async function validateAction<T>(request: Request, validator: Validator<T>) {
