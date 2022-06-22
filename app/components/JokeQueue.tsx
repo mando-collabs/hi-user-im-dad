@@ -9,16 +9,27 @@ import type { QueuedJokesLoaderData } from "~/routes/api/jokes/queued";
 import { usePusherEvent } from "~/hooks/use-pusher-event";
 import type { JokeEventMessage } from "~/types/JokeEvent";
 import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
+import { useUpdateEffect } from "react-use";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
   userId: number;
 }
 
-function useFetchJokesQueue(initialJokes: JokeQueueJoke[]) {
+function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
+  const [jokes, setJokes] = React.useState(ssrJokes);
+
   const fetcher = useFetcher<QueuedJokesLoaderData>();
-  const jokes = fetcher.data?.jokes ?? initialJokes;
   const refresh = () => fetcher.load("/api/jokes/queued");
+
+  useUpdateEffect(() => {
+    setJokes(fetcher.data?.jokes ?? ssrJokes);
+  }, [fetcher.data]);
+
+  useUpdateEffect(() => {
+    setJokes(ssrJokes);
+  }, [ssrJokes]);
+
   return { state: fetcher.state, jokes, refresh };
 }
 
@@ -29,7 +40,6 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userI
     if (message.userId === userId) return;
 
     if (Object.keys(JokeEvent).includes(event)) {
-      console.log("refreshing joke queue", event, message);
       refresh();
     }
   });
