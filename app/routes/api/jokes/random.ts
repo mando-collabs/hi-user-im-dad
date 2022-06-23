@@ -7,11 +7,11 @@ export interface RandomJokeLoaderData {
   randomJoke: DadJokeApiResponse;
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }): Promise<RandomJokeLoaderData | null> => {
   await assertUser(request);
 
   try {
-    return await JokeService.generateRandomJoke();
+    return { randomJoke: await JokeService.generateRandomJoke() };
   } catch (err) {
     return null;
   }
