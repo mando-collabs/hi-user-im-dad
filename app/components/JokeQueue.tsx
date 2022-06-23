@@ -54,7 +54,9 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes }) => {
                   Delivered at {new Date(joke.deliveredAt).toLocaleString()}
                 </span>
               ) : null}
-              {!joke.isMyJoke && joke.delivered && <RateJokeForm jokeId={joke.id} />}
+              {!joke.isMyJoke && joke.delivered && (
+                <RateJokeForm jokeId={joke.id} myRating={joke.myRating} ratings={joke.ratings} />
+              )}
             </div>
           </div>
         ))

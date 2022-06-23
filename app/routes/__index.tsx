@@ -10,7 +10,7 @@ import React from "react";
 import { Tabs } from "~/components/Tabs";
 import { PageLoader } from "~/components/PageLoader";
 
-interface LoaderData {
+export interface RootLoaderData {
   username: string;
   profileImgUrl: string | null;
   jokeQueueJokes: JokeQueueJoke[];
@@ -28,7 +28,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const myJokesCount = await jokeService.getMyJokesCount();
   const jokeQueueJokes = await jokeService.getJokeQueueJokes();
 
-  const data: LoaderData = {
+  const data: RootLoaderData = {
     username: user.displayName,
     profileImgUrl: user.profileImgUrl,
     jokeQueueJokes,
@@ -39,7 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function __index() {
-  const { username, profileImgUrl, jokeQueueJokes, myJokesCount } = useLoaderData<LoaderData>();
+  const { username, profileImgUrl, jokeQueueJokes, myJokesCount } = useLoaderData<RootLoaderData>();
   const { type, state } = useTransition();
 
   return (

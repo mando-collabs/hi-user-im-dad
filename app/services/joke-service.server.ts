@@ -19,6 +19,8 @@ export interface JokeQueueJoke {
   deliveredAt: Date | null;
   isMyJoke: boolean;
   queued: boolean;
+  myRating: { score: number } | undefined;
+  ratings: Array<{ score: number; count: number }>;
 }
 
 export interface MyJoke {
@@ -61,7 +63,23 @@ export class JokeService extends BaseService {
       where: { queued: true },
       take: 15,
       orderBy: { queuedAt: "desc" },
-      include: { submitter: { select: { displayName: true, profileImgUrl: true } } },
+      include: {
+        submitter: { select: { displayName: true, profileImgUrl: true } },
+        ratings: {
+          select: { score: true, userId: true },
+          where: { userId: this.user.id },
+        },
+      },
+    });
+
+    const ratings = await db.rating.groupBy({
+      by: ["score", "jokeId"],
+      where: {
+        jokeId: {
+          in: jokes.map((joke) => joke.id),
+        },
+      },
+      _count: true,
     });
 
     return jokes.map((joke) => {
@@ -75,6 +93,10 @@ export class JokeService extends BaseService {
         deliveredAt: joke.deliveredAt,
         queued: joke.queued,
         isMyJoke,
+        myRating: joke.ratings[0], // db enforces single rating per joke per user
+        ratings: ratings
+          .filter((rating) => rating.jokeId === joke.id)
+          .map(({ score, _count }) => ({ score, count: _count })),
       };
     });
   }
