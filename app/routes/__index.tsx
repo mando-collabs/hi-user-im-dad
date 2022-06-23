@@ -11,6 +11,7 @@ import { Tabs } from "~/components/Tabs";
 import { PageLoader } from "~/components/PageLoader";
 
 export interface RootLoaderData {
+  userId: number;
   username: string;
   profileImgUrl: string | null;
   jokeQueueJokes: JokeQueueJoke[];
@@ -29,6 +30,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const jokeQueueJokes = await jokeService.getJokeQueueJokes();
 
   const data: RootLoaderData = {
+    userId: user.id,
     username: user.displayName,
     profileImgUrl: user.profileImgUrl,
     jokeQueueJokes,
@@ -39,7 +41,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function __index() {
-  const { username, profileImgUrl, jokeQueueJokes, myJokesCount } = useLoaderData<RootLoaderData>();
+  const { username, profileImgUrl, jokeQueueJokes, myJokesCount, userId } = useLoaderData<RootLoaderData>();
   const { type, state } = useTransition();
 
   return (
@@ -51,7 +53,7 @@ export default function __index() {
             {/* Start secondary column (hidden on smaller screens) */}
             <div className="overflow-auto absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
               <h1 className="mb-4 text-2xl font-extrabold text-primary-900 sm:text-3xl">The Joke Queue</h1>
-              <JokeQueue jokes={jokeQueueJokes} />
+              <JokeQueue jokes={jokeQueueJokes} userId={userId} />
             </div>
             {/* End secondary column */}
           </aside>

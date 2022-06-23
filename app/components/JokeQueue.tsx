@@ -4,14 +4,47 @@ import classNames from "classnames";
 import { Button, IconButton } from "@mando-collabs/tailwind-ui";
 import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
 import type { JokeQueueJoke } from "~/services/joke-service.server";
-import { Form } from "@remix-run/react";
+import { Form, useFetcher } from "@remix-run/react";
+import type { QueuedJokesLoaderData } from "~/routes/api/jokes/queued";
+import { usePusherEvent } from "~/hooks/use-pusher-event";
+import type { JokeEventMessage } from "~/types/JokeEvent";
+import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
+import { useUpdateEffect } from "react-use";
 import { RateJokeForm } from "~/components/RateJokeForm";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
+  userId: number;
 }
 
-export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes }) => {
+function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
+  const [jokes, setJokes] = React.useState(ssrJokes);
+
+  const fetcher = useFetcher<QueuedJokesLoaderData>();
+  const refresh = () => fetcher.load("/api/jokes/queued");
+
+  useUpdateEffect(() => {
+    setJokes(fetcher.data?.jokes ?? ssrJokes);
+  }, [fetcher.data]);
+
+  useUpdateEffect(() => {
+    setJokes(ssrJokes);
+  }, [ssrJokes]);
+
+  return { state: fetcher.state, jokes, refresh };
+}
+
+export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userId }) => {
+  const { jokes, refresh } = useFetchJokesQueue(initialJokes);
+
+  usePusherEvent({ channelName: JOKES_CHANNEL }, (event: JokeEvent | string, message: JokeEventMessage) => {
+    if (message.userId === userId) return;
+
+    if (Object.keys(JokeEvent).includes(event)) {
+      refresh();
+    }
+  });
+
   return (
     <div className="space-y-4">
       {jokes.length ? (
