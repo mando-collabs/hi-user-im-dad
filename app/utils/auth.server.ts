@@ -13,7 +13,7 @@ import { json } from "@remix-run/node";
 type AuthenticatedUser = User & { profileImgUrl: string | null };
 export const authenticator = new Authenticator<AuthenticatedUser>(sessionStorage);
 
-const host = process.env.HOST || "http://localhost:3000";
+const host = process.env.PUBLIC_HOST || "http://localhost:3000";
 const clientID = getRequiredEnvVariable("GITHUB_CLIENT_ID");
 const clientSecret = getRequiredEnvVariable("GITHUB_CLIENT_SECRET");
 
