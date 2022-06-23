@@ -1,7 +1,7 @@
 # base node image
 FROM node:16-bullseye-slim as base
 
-ARG GITHUB_TOKEN
+ARG NODE_AUTH_TOKEN
 
 # Install openssl for Prisma
 RUN apt-get update && apt-get install -y openssl curl
@@ -16,7 +16,7 @@ RUN mkdir /app
 WORKDIR /app
 
 ADD package.json package-lock.json .npmrc ./
-RUN echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc
+RUN echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
 RUN npm install --production=false
 
 # Setup production node_modules
