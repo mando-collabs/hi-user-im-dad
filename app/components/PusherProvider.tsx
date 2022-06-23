@@ -3,7 +3,7 @@ import Pusher from "pusher-js";
 
 const PusherContext = createContext<Pusher | null>(null);
 
-export const PusherProvider: React.FC = ({ children }) => {
+export const PusherProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pusherAppKey, pusherAppCluster } = window.ENV;
   const [pusher] = React.useState<Pusher>(() => {
     console.log("establishing pusher connection");
