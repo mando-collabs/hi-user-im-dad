@@ -2,7 +2,36 @@
 
 - [Remix Docs](https://remix.run/docs)
 
-## Fly Setup
+## Development
+
+setup your .env file:
+```dotenv
+DATABASE_URL
+PUBLIC_HOST
+GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET
+PUSHER_APP_ID
+PUSHER_APP_KEY
+PUSHER_APP_SECRET
+PUSHER_APP_CLUSTER
+SESSION_SECRET
+```
+
+From your terminal:
+
+install dependencies:
+```sh
+npm install
+```
+
+run the dev server:
+```sh
+npm run dev
+```
+
+This starts your app in development mode, rebuilding assets on file changes.
+
+## Fly Setup (optional)
 
 1. [Install `flyctl`](https://fly.io/docs/getting-started/installing-flyctl/)
 
@@ -17,16 +46,6 @@ flyctl auth signup
 ```sh
 flyctl launch
 ```
-
-## Development
-
-From your terminal:
-
-```sh
-npm run dev
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
 
 ## Deployment
 
