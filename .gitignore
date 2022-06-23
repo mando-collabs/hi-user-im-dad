@@ -1,13 +1,14 @@
 node_modules
 
 /.cache
+/build
 /public/build
-/.netlify
 .env
+.env.production
 
 .idea/
 
-app/tailwind.css
+/app/tailwind.css
 
 *.db
 
