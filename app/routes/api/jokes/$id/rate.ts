@@ -9,6 +9,10 @@ import { RatingsService } from "~/services/ratings-service.server";
 import { zfd } from "zod-form-data";
 import { withZod } from "@remix-validated-form/with-zod";
 import type { Params } from "react-router";
+import { pusher } from "~/utils/pusher.server";
+import type { RateEventPayload } from "~/types/RateEvent";
+import { RateEvent, RATINGS_CHANNEL_NAME } from "~/types/RateEvent";
+import { db } from "~/utils/db.server";
 
 const paramValidator = withZod(
   z.object({
@@ -43,6 +47,21 @@ export const action: ActionFunction = async ({ request, params }) => {
   const ratingService = new RatingsService(user);
 
   await ratingService.upsertRating(rating);
+
+  const ratings = await db.rating.groupBy({
+    by: ["score", "jokeId"],
+    where: {
+      jokeId: validationResult.id,
+    },
+    _count: true,
+  });
+
+  const payload: RateEventPayload = {
+    jokeId: validationResult.id,
+    userId: user.id,
+    ratings: ratings.map((r) => ({ score: r.score, count: r._count })),
+  };
+  await pusher.trigger(RATINGS_CHANNEL_NAME, RateEvent.ratingUpdated, payload);
 
   return redirect("/");
 };
