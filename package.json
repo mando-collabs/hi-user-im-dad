@@ -25,7 +25,7 @@
   "dependencies": {
     "@heroicons/react": "1.0.6",
     "@icons-pack/react-simple-icons": "5.1.2",
-    "@mando-collabs/tailwind-ui": "^1.15.2",
+    "@mando-collabs/tailwind-ui": "1.15.2",
     "@netlify/functions": "1.0.0",
     "@prisma/client": "3.15.2",
     "@remix-run/node": "^1.6.1",
@@ -42,7 +42,7 @@
     "react-use": "^17.4.0",
     "remix-auth": "3.2.2",
     "remix-auth-github": "1.1.1",
-    "remix-utils": "^3.3.0",
+    "remix-utils": "3.3.0",
     "remix-validated-form": "4.5.0",
     "zod": "3.17.3",
     "zod-form-data": "1.2.0"
@@ -51,7 +51,7 @@
     "@remix-run/dev": "1.6.1",
     "@remix-run/eslint-config": "1.6.1",
     "@tailwindcss/forms": "0.5.2",
-    "@types/pusher-js": "^5.1.0",
+    "@types/pusher-js": "5.1.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "eslint": "8.18.0",
