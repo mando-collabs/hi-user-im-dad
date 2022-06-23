@@ -1,71 +1,41 @@
-# Welcome!
+# Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
 
-## Setup
+## Fly Setup
 
-1. Install the [Netlify CLI](https://www.netlify.com/products/dev/):
+1. [Install `flyctl`](https://fly.io/docs/getting-started/installing-flyctl/)
 
-```sh
-npm i -g netlify-cli
-```
-
-If you have previously installed the Netlify CLI, you should update it to the latest version:
+2. Sign up and log in to Fly
 
 ```sh
-npm i -g netlify-cli@latest
+flyctl auth signup
 ```
 
-2. Sign up and log in to Netlify:
+3. Setup Fly. It might ask if you want to deploy, say no since you haven't built the app yet.
 
 ```sh
-netlify login
-```
-
-3. Add a `.env` file
-
-```dotenv
-DATABASE_URL=<the_connection_string>
-HOST=<whatever host you're using if it's not localhost:3000>
-```
-
-4. Prepare the repository
-
-```shell
-npm install
-
-npm run db:prepare
-
-npm run build
+flyctl launch
 ```
 
 ## Development
 
-The Netlify CLI starts your app in development mode, rebuilding assets on file changes.
+From your terminal:
 
 ```sh
 npm run dev
 ```
 
-## ENV
+This starts your app in development mode, rebuilding assets on file changes.
 
-```dotenv
-DATABASE_URL="postgresql://${connection-string}"
+## Deployment
+
+If you've followed the setup instructions already, all you need to do is run this:
+
+```sh
+npm run deploy
 ```
 
-Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
+You can run `flyctl info` to get the url and ip address of your server.
 
-## Features Ideas
-
-- Entry Modal
-  - Whats your name?
-  - Cookie
-- My Jokes
-  - Add via random generator (icanhazdadjokes API?)
-  - Submit own
-  - Persist your backlog of jokes
-  - Submit to Tuesday Queue
-- Tuesday Joke Queue
-  - Past delivered w/ ranking
-  - Queued jokes
-    - Joke blurred if current user not submitter w/ submitter name visible always
+Check out the [fly docs](https://fly.io/docs/getting-started/node/) for more information.
