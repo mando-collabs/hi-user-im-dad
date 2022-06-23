@@ -12,6 +12,9 @@
   command = "remix watch"
   port = 3000
 
+[functions]
+  ignored_node_modules = ["@icons-pack/react-simple-icons"]
+
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
