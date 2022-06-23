@@ -4,8 +4,10 @@ FROM node:16-bullseye-slim as base
 ARG GITHUB_TOKEN
 
 # Install openssl for Prisma
-RUN apt-get update && apt-get install -y openssl
+RUN apt-get update && apt-get install -y openssl curl
 
+# Install the cockroachdb ssl cert
+RUN curl --create-dirs -o $HOME/.postgresql/root.crt -O https://cockroachlabs.cloud/clusters/09186f89-e88e-4d3e-9877-fc4221efdcb7/cert
 
 # Install all node_modules, including dev dependencies
 FROM base as deps
