@@ -9,7 +9,7 @@ import type { RootLoaderData } from "~/routes/__index";
 type MyRating = RootLoaderData["jokeQueueJokes"][number]["myRating"];
 type JokeRatings = RootLoaderData["jokeQueueJokes"][number]["ratings"];
 
-export interface JokeRatingFormProps {
+export interface RateJokeFormProps {
   jokeId: number;
   myRating: MyRating;
   ratings: JokeRatings;
@@ -29,7 +29,7 @@ const ratingOptions: Array<RatingOption> = [
   { label: "Knee Slap", value: 4 },
 ];
 
-export const RateJokeForm: React.FC<JokeRatingFormProps> = ({ jokeId, className, myRating, ratings }) => {
+export const RateJokeForm: React.FC<RateJokeFormProps> = ({ jokeId, className, myRating, ratings }) => {
   const formAction = `/api/jokes/${jokeId}/rate`;
 
   return (
