@@ -10,6 +10,7 @@ import { usePusherEvent } from "~/hooks/use-pusher-event";
 import type { JokeEventMessage } from "~/types/JokeEvent";
 import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
 import { useUpdateEffect } from "react-use";
+import { RateJokeForm } from "~/components/RateJokeForm";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
@@ -86,6 +87,9 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userI
                   Delivered at {new Date(joke.deliveredAt).toLocaleString()}
                 </span>
               ) : null}
+              {!joke.isMyJoke && joke.delivered && (
+                <RateJokeForm jokeId={joke.id} myRating={joke.myRating} ratings={joke.ratings} />
+              )}
             </div>
           </div>
         ))

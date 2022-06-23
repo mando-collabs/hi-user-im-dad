@@ -46,6 +46,7 @@ model Joke {
   submitterId Int
 
   submitter User @relation(fields: [submitterId], references: [id])
+  ratings Rating[]
 
   @@index([submitterId, queued])
 }
@@ -59,6 +60,11 @@ model Rating {
   updatedAt DateTime @updatedAt
 
   userId Int
+  jokeId Int
 
+  joke Joke @relation(fields: [jokeId], references: [id])
   user User @relation(fields: [userId], references: [id])
+
+
+  @@unique([jokeId, userId])
 }
