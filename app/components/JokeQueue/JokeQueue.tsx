@@ -13,6 +13,7 @@ import { useUpdateEffect } from "react-use";
 import { RateJokeForm } from "~/components/RateJokeForm";
 import type { RateEventPayload } from "~/types/RateEvent";
 import { RATINGS_CHANNEL_NAME } from "~/types/RateEvent";
+import { useOptimisticJokes } from "~/components/JokeQueue/use-optimistic-jokes";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
@@ -20,7 +21,7 @@ export interface JokeQueueProps {
 }
 
 function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
-  const [jokes, setJokes] = React.useState(ssrJokes);
+  const [baseJokes, setJokes] = React.useState(ssrJokes);
 
   const fetcher = useFetcher<QueuedJokesLoaderData>();
   const refresh = () => fetcher.load("/api/jokes/queued");
@@ -32,6 +33,8 @@ function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
   useUpdateEffect(() => {
     setJokes(ssrJokes);
   }, [ssrJokes]);
+
+  const jokes = useOptimisticJokes(baseJokes);
 
   return { state: fetcher.state, jokes, refresh, setJokes };
 }
@@ -107,8 +110,8 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userI
                   Delivered at {new Date(joke.deliveredAt).toLocaleString()}
                 </span>
               ) : null}
-              {!joke.isMyJoke && joke.delivered && (
-                <RateJokeForm jokeId={joke.id} myRating={joke.myRating} ratings={joke.ratings} />
+              {joke.delivered && (
+                <RateJokeForm jokeId={joke.id} myRating={joke.myRating} ratings={joke.ratings} myJoke={joke.isMyJoke} />
               )}
             </div>
           </div>
