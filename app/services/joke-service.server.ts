@@ -2,7 +2,7 @@ import type { Joke } from "@prisma/client";
 import { db } from "~/utils/db.server";
 
 import { BaseService } from "~/services/base-service.server";
-import { any } from "~/utils/any.server";
+import { loremSentences } from "~/utils/lorem";
 
 export interface DadJokeApiResponse {
   id: string;
@@ -86,7 +86,7 @@ export class JokeService extends BaseService {
       let isMyJoke = joke.submitterId === this.user.id;
       return {
         id: joke.id,
-        content: joke.delivered || isMyJoke ? joke.content : any.sentence(),
+        content: joke.delivered || isMyJoke ? joke.content : loremSentences[joke.id % 10],
         username: joke.submitter.displayName,
         profileImgUrl: joke.submitter.profileImgUrl,
         delivered: joke.delivered,

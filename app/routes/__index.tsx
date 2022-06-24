@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { authenticator } from "~/utils/auth.server";
 import { Outlet, useLoaderData, useTransition } from "@remix-run/react";
@@ -38,6 +38,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 
   return data;
+};
+
+export const meta: MetaFunction = () => {
+  return {
+    title: `Hi User, I'm Dad!`,
+    description: "App Dev Dad Jokes",
+  };
 };
 
 export default function __index() {

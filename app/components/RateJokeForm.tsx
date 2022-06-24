@@ -1,10 +1,9 @@
+import type { ChangeEventHandler } from "react";
 import React from "react";
-import { Button } from "@mando-collabs/tailwind-ui";
-import { LightningBoltIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
-import { ValidatedForm } from "remix-validated-form";
-import { rateJokeFormValidator } from "~/forms/rating-schemas";
 import type { RootLoaderData } from "~/routes/__index";
+import type { FetcherWithComponents } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
 
 type MyRating = RootLoaderData["jokeQueueJokes"][number]["myRating"];
 type JokeRatings = RootLoaderData["jokeQueueJokes"][number]["ratings"];
@@ -12,6 +11,7 @@ type JokeRatings = RootLoaderData["jokeQueueJokes"][number]["ratings"];
 export interface RateJokeFormProps {
   jokeId: number;
   myRating: MyRating;
+  myJoke: boolean;
   ratings: JokeRatings;
   className?: string;
 }
@@ -29,48 +29,63 @@ const ratingOptions: Array<RatingOption> = [
   { label: "Knee Slap", value: 4 },
 ];
 
-export const RateJokeForm: React.FC<RateJokeFormProps> = ({ jokeId, className, myRating, ratings }) => {
+export const RateJokeForm: React.FC<RateJokeFormProps> = ({ jokeId, className, myRating, myJoke, ratings }) => {
   const formAction = `/api/jokes/${jokeId}/rate`;
+  const fetcher = useFetcher();
 
   return (
-    <ValidatedForm
-      validator={rateJokeFormValidator}
-      method="post"
-      action={formAction}
-      className={classNames(`flex flex-col ${className}`)}
-    >
-      <fieldset className="flex flex-row justify-between my-2">
+    <fetcher.Form method="post" action={formAction} className={classNames(`flex flex-col ${className}`)}>
+      <fieldset className="flex flex-row justify-between my-2" disabled={myJoke}>
         {ratingOptions.map((option) => (
-          <JokeRatingFormGroup ratingOption={option} ratings={ratings} myRating={myRating} key={option.value} />
+          <JokeRatingFormGroup
+            ratingOption={option}
+            ratings={ratings}
+            myRating={myRating}
+            key={option.value}
+            fetcher={fetcher}
+            jokeId={jokeId}
+          />
         ))}
       </fieldset>
-      <Button type="submit" kind="primary" size="xs" leadingIcon={LightningBoltIcon}>
-        Rate Joke
-      </Button>
-    </ValidatedForm>
+    </fetcher.Form>
   );
 };
 
 interface JokeRatingFormGroupProps {
+  jokeId: number;
   ratingOption: RatingOption;
   ratings: JokeRatings;
   myRating: MyRating;
+  fetcher: FetcherWithComponents<unknown>;
 }
 
-const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({ ratingOption, ratings, myRating }) => {
+export const JOKE_RATING_FORM_ACTION_KEY = "/rate";
+
+const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({
+  ratingOption,
+  ratings,
+  myRating,
+  fetcher,
+  jokeId,
+}) => {
   const matchedRating = ratings.find((rating) => rating.score === ratingOption.value);
+  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => fetcher.submit(e.target.form);
 
   return (
-    <label key={ratingOption.label} className="flex relative flex-col rounded cursor-pointer">
+    <label key={ratingOption.label} className="group flex relative flex-col rounded cursor-pointer">
       <input
         type="radio"
         name="score"
         value={ratingOption.value}
         defaultChecked={myRating?.score === ratingOption.value}
+        onChange={onChange}
         className="peer absolute z-20 opacity-0"
       />
-      <div className="py-1 px-2 w-full h-full text-sm text-primary-500 peer-checked:text-white bg-primary-50 peer-checked:bg-primary-500 rounded">
-        {matchedRating && <span className="mr-2 text-xs font-medium text-primary-800">{matchedRating.count}</span>}
+      <input type="hidden" value={jokeId} name="jokeId" />
+      <div className="py-1 px-2 w-full h-full text-sm text-primary-500 peer-checked:text-white peer-disabled:text-white bg-primary-50 peer-checked:bg-primary-500 peer-disabled:bg-sky-300 rounded">
+        {matchedRating && matchedRating.count > 0 && (
+          <span className="mr-2 text-xs font-medium text-primary-900">{matchedRating.count}</span>
+        )}
         <span>{ratingOption.label}</span>
       </div>
     </label>

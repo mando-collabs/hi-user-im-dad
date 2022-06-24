@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
 import classNames from "classnames";
 import { Button, IconButton } from "@mando-collabs/tailwind-ui";
@@ -7,10 +7,13 @@ import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { Form, useFetcher } from "@remix-run/react";
 import type { QueuedJokesLoaderData } from "~/routes/api/jokes/queued";
 import { usePusherEvent } from "~/hooks/use-pusher-event";
-import type { JokeEventMessage } from "~/types/JokeEvent";
+import type { JokeEventPayload } from "~/types/JokeEvent";
 import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
 import { useUpdateEffect } from "react-use";
 import { RateJokeForm } from "~/components/RateJokeForm";
+import type { RateEventPayload } from "~/types/RateEvent";
+import { RATINGS_CHANNEL_NAME } from "~/types/RateEvent";
+import { useOptimisticJokes } from "~/components/JokeQueue/use-optimistic-jokes";
 
 export interface JokeQueueProps {
   jokes: JokeQueueJoke[];
@@ -18,7 +21,7 @@ export interface JokeQueueProps {
 }
 
 function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
-  const [jokes, setJokes] = React.useState(ssrJokes);
+  const [baseJokes, setJokes] = React.useState(ssrJokes);
 
   const fetcher = useFetcher<QueuedJokesLoaderData>();
   const refresh = () => fetcher.load("/api/jokes/queued");
@@ -31,19 +34,39 @@ function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
     setJokes(ssrJokes);
   }, [ssrJokes]);
 
-  return { state: fetcher.state, jokes, refresh };
+  const jokes = useOptimisticJokes(baseJokes);
+
+  return { state: fetcher.state, jokes, refresh, setJokes };
 }
 
 export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userId }) => {
-  const { jokes, refresh } = useFetchJokesQueue(initialJokes);
+  const { jokes, setJokes, refresh } = useFetchJokesQueue(initialJokes);
 
-  usePusherEvent({ channelName: JOKES_CHANNEL }, (event: JokeEvent | string, message: JokeEventMessage) => {
-    if (message.userId === userId) return;
+  usePusherEvent({ channelName: JOKES_CHANNEL }, (event: JokeEvent | string, payload: JokeEventPayload) => {
+    if (payload.userId === userId) return;
 
     if (Object.keys(JokeEvent).includes(event)) {
       refresh();
     }
   });
+
+  const updateJokeRatings = useCallback(
+    (event: string, payload: RateEventPayload) => {
+      if (payload.userId === userId) return;
+
+      setJokes(
+        jokes.map((joke) => {
+          if (joke.id === payload.jokeId) {
+            return { ...joke, ratings: payload.ratings };
+          }
+          return joke;
+        })
+      );
+    },
+    [jokes, setJokes, userId]
+  );
+
+  usePusherEvent({ channelName: RATINGS_CHANNEL_NAME }, updateJokeRatings);
 
   return (
     <div className="space-y-4">
@@ -87,8 +110,8 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userI
                   Delivered at {new Date(joke.deliveredAt).toLocaleString()}
                 </span>
               ) : null}
-              {!joke.isMyJoke && joke.delivered && (
-                <RateJokeForm jokeId={joke.id} myRating={joke.myRating} ratings={joke.ratings} />
+              {joke.delivered && (
+                <RateJokeForm jokeId={joke.id} myRating={joke.myRating} ratings={joke.ratings} myJoke={joke.isMyJoke} />
               )}
             </div>
           </div>

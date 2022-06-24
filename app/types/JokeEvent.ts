@@ -6,7 +6,7 @@ export enum JokeEvent {
   delivered = "delivered",
 }
 
-export interface JokeEventMessage {
+export interface JokeEventPayload {
   userId: number;
   jokeId: number;
 }

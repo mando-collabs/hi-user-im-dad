@@ -1,5 +1,13 @@
 import { Github } from "@icons-pack/react-simple-icons";
 import { Button } from "@mando-collabs/tailwind-ui";
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return {
+    title: `Hi User, I'm Dad!`,
+    description: "App Dev Dad Jokes",
+  };
+};
 
 export default function LoginPage() {
   return (

@@ -1,5 +1,6 @@
 import { usePusher } from "~/components/PusherProvider";
-import { useEffectOnce } from "react-use";
+import { useEffect, useState } from "react";
+import type { Channel } from "pusher-js";
 
 interface UsePusherEventParams {
   channelName: string;
@@ -11,11 +12,22 @@ export function usePusherEvent<T extends unknown[] = unknown[]>(
   callback: (...args: T) => void
 ) {
   const pusher = usePusher();
+  const [channel, setChannel] = useState<Channel | null>(null);
 
-  useEffectOnce(() => {
-    if (!pusher) return;
+  useEffect(() => {
+    if (!pusher) return setChannel(null);
 
-    const channel = pusher.subscribe(channelName);
+    const c = pusher.subscribe(channelName);
+
+    setChannel(c);
+
+    return () => {
+      c?.unsubscribe();
+    };
+  }, [pusher, channelName]);
+
+  useEffect(() => {
+    if (!channel) return;
 
     if (eventName) {
       channel.bind(eventName, callback);
@@ -24,7 +36,7 @@ export function usePusherEvent<T extends unknown[] = unknown[]>(
     }
 
     return () => {
-      channel.unsubscribe();
+      channel.unbind_all();
     };
-  });
+  }, [channel, eventName, callback]);
 }
