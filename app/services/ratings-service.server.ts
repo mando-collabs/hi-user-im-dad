@@ -22,4 +22,14 @@ export class RatingsService extends BaseService {
       },
     });
   }
+
+  public getRatingsByJokeId(id: number) {
+    return db.rating.groupBy({
+      by: ["score", "jokeId"],
+      where: {
+        jokeId: id,
+      },
+      _count: true,
+    });
+  }
 }
