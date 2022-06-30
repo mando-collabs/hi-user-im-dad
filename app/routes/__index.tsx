@@ -52,22 +52,22 @@ export default function __index() {
   const { type, state } = useTransition();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <Header username={username} profileImgUrl={profileImgUrl} />
-      <div className="flex flex-1 h-full">
-        <div className="flex overflow-hidden relative z-0 flex-1">
-          <aside className="hidden overflow-hidden relative shrink-0 w-full max-w-2xl border-r border-gray-200 xl:flex xl:flex-col xl:order-first">
+      <div className="flex h-full flex-1">
+        <div className="relative z-0 flex flex-1 overflow-hidden">
+          <aside className="relative hidden w-full max-w-2xl shrink-0 overflow-hidden border-r border-gray-200 xl:order-first xl:flex xl:flex-col">
             {/* Start secondary column (hidden on smaller screens) */}
-            <div className="overflow-auto absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
+            <div className="absolute inset-0 overflow-auto py-6 px-4 sm:px-6 lg:px-8">
               <h1 className="mb-4 text-2xl font-extrabold text-primary-900 sm:text-3xl">The Joke Queue</h1>
               <JokeQueue jokes={jokeQueueJokes} userId={userId} />
             </div>
             {/* End secondary column */}
           </aside>
 
-          <main className="overflow-hidden relative z-0 flex-1 focus:outline-none xl:order-last">
+          <main className="relative z-0 flex-1 overflow-hidden focus:outline-none xl:order-last">
             {/* Start main area*/}
-            <div className="overflow-y-auto absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
+            <div className="absolute inset-0 overflow-y-auto py-6 px-4 sm:px-6 lg:px-8">
               <Tabs myJokesCount={myJokesCount} />
 
               <div className="mt-4">{type === "normalLoad" && state === "loading" ? <PageLoader /> : <Outlet />}</div>

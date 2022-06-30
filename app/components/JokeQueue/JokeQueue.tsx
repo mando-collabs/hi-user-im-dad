@@ -72,18 +72,18 @@ export const JokeQueue: React.FC<JokeQueueProps> = ({ jokes: initialJokes, userI
     <div className="space-y-4">
       {jokes.length ? (
         jokes.map((joke) => (
-          <div key={joke.id} className="flex items-start py-2 px-4 text-gray-700 rounded-md border">
+          <div key={joke.id} className="flex items-start rounded-md border py-2 px-4 text-gray-700">
             {joke.profileImgUrl ? (
               <img
-                className="w-6 h-6 rounded-full"
+                className="h-6 w-6 rounded-full"
                 src={joke.profileImgUrl}
                 alt={joke.username}
                 title={joke.username}
               />
             ) : (
-              <PlaceholderAvatar className="w-6 h-6" username={joke.username} />
+              <PlaceholderAvatar className="h-6 w-6" username={joke.username} />
             )}
-            <div className="flex flex-col w-full">
+            <div className="flex w-full flex-col">
               <div className="flex w-full">
                 <div className={classNames("ml-2 flex-1", { blur: !joke.delivered && !joke.isMyJoke })}>
                   {joke.content}
