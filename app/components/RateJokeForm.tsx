@@ -35,7 +35,7 @@ export const RateJokeForm: React.FC<RateJokeFormProps> = ({ jokeId, className, m
 
   return (
     <fetcher.Form method="post" action={formAction} className={classNames(`flex flex-col ${className}`)}>
-      <fieldset className="flex flex-row justify-between my-2" disabled={myJoke}>
+      <fieldset className="my-2 flex flex-row justify-between" disabled={myJoke}>
         {ratingOptions.map((option) => (
           <JokeRatingFormGroup
             ratingOption={option}
@@ -72,7 +72,7 @@ const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => fetcher.submit(e.target.form);
 
   return (
-    <label key={ratingOption.label} className="group flex relative flex-col rounded cursor-pointer">
+    <label key={ratingOption.label} className="group relative flex cursor-pointer flex-col rounded">
       <input
         type="radio"
         name="score"
@@ -82,7 +82,7 @@ const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({
         className="peer absolute z-20 opacity-0"
       />
       <input type="hidden" value={jokeId} name="jokeId" />
-      <div className="py-1 px-2 w-full h-full text-sm text-primary-500 peer-checked:text-white peer-disabled:text-white bg-primary-50 peer-checked:bg-primary-500 peer-disabled:bg-sky-300 rounded">
+      <div className="h-full w-full rounded bg-primary-50 py-1 px-2 text-sm text-primary-500 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:bg-sky-300 peer-disabled:text-white">
         {matchedRating && matchedRating.count > 0 && (
           <span className="mr-2 text-xs font-medium text-primary-900">{matchedRating.count}</span>
         )}
