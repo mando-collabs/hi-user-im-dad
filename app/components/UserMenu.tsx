@@ -13,9 +13,9 @@ export const UserMenu: React.FC<UserMenuProps> = ({ profileImgUrl, username }) =
     <Dropdown>
       <Dropdown.Trigger>
         {profileImgUrl ? (
-          <img className="inline-block w-10 h-10 rounded-full" src={profileImgUrl} alt={username} />
+          <img className="inline-block h-10 w-10 rounded-full" src={profileImgUrl} alt={username} />
         ) : (
-          <PlaceholderAvatar className="w-10 h-10" />
+          <PlaceholderAvatar className="h-10 w-10" />
         )}
       </Dropdown.Trigger>
       <Dropdown.Items>

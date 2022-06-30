@@ -31,7 +31,7 @@ export default function AddJoke() {
 
   return (
     <>
-      <div className="flex justify-between items-end mb-4">
+      <div className="mb-4 flex items-end justify-between">
         <h1 className="text-2xl font-extrabold text-primary-900 sm:text-3xl">
           <span className="sm:hidden">Random joke</span>
           <span className="hidden sm:inline">A Random Dad Joke</span>
@@ -41,7 +41,7 @@ export default function AddJoke() {
       {randomJoke ? (
         <RandomJokeForm action="/api/jokes" id={randomJoke.id} joke={randomJoke.joke} status={randomJoke.status} />
       ) : (
-        <div className="p-4 bg-red-50 rounded-md border border-red-500">
+        <div className="rounded-md border border-red-500 bg-red-50 p-4">
           <p className="font-medium text-red-800">Random jokes are unavailable at this time. Sorry ☹️</p>
         </div>
       )}

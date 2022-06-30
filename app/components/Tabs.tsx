@@ -24,7 +24,7 @@ export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
         <select
           id="tabs"
           name="tabs"
-          className="block py-2 pr-10 pl-3 w-full text-base rounded-md border-gray-300 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+          className="block w-full rounded-md border-gray-300 py-2 pr-10 pl-3 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
           value={tabs.find((tab) => tab.current)?.name}
           onChange={(e) => {
             const tab = tabs.find((tab) => tab.name === e.target.value);
@@ -38,7 +38,7 @@ export const Tabs: React.FC<TabsProps> = ({ myJokesCount }) => {
       </div>
       <div className="hidden sm:block">
         <div className="border-b border-gray-200">
-          <nav className="flex -mb-px space-x-8" aria-label="Tabs">
+          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             {tabs.map((tab) => (
               <Link
                 key={tab.name}
