@@ -1,4 +1,4 @@
-import type { FormMethod } from "@remix-run/react/data";
+import type { FormMethod } from "@remix-run/react";
 
 export interface FormComponentProps {
   action?: string;
