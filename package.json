@@ -36,7 +36,7 @@
     "classnames": "2.3.1",
     "http-status-codes": "2.2.0",
     "pusher": "5.0.1",
-    "pusher-js": "7.2.0",
+    "pusher-js": "7.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-use": "17.4.0",
@@ -44,7 +44,7 @@
     "remix-auth-github": "1.1.1",
     "remix-utils": "3.3.0",
     "remix-validated-form": "4.5.1",
-    "zod": "3.17.9",
+    "zod": "3.17.10",
     "zod-form-data": "1.2.1"
   },
   "devDependencies": {
