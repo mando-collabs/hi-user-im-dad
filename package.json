@@ -43,7 +43,7 @@
     "remix-auth": "3.2.2",
     "remix-auth-github": "1.1.1",
     "remix-utils": "3.3.0",
-    "remix-validated-form": "4.5.1",
+    "remix-validated-form": "4.5.2",
     "zod": "3.17.10",
     "zod-form-data": "1.2.1"
   },
