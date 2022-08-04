@@ -4,7 +4,7 @@
 
 ## Development
 
-setup your .env file:
+create a `.env` file at the root of the project (you can get the values from a fellow dad):
 ```dotenv
 DATABASE_URL
 PUBLIC_HOST
@@ -22,6 +22,11 @@ From your terminal:
 install dependencies:
 ```sh
 npm install
+```
+
+> ⚠️ To install dependencies you need a GitHub token with permissions to read packages. If you don't have one and are getting 401 errors during installation you can set up a token here: https://github.com/settings/tokens/new and add the following to `~/.npmrc`:
+```sh
+//npm.pkg.github.com/:_authToken=YOUR_SUPER_SECRET_TOKEN_HERE
 ```
 
 run the dev server:
