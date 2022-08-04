@@ -24,7 +24,7 @@ install dependencies:
 npm install
 ```
 
-> ⚠️ To install dependencies you need a GitHub token with permissions to read packages. If you don't have one and are getting 401 errors during installation you can set up a token here: https://github.com/settings/tokens/new and add the following to `~/.npmrc`:
+> ⚠️ To install dependencies you need access to the mando-collabs/tailwind-ui repo, and a GitHub token with permissions to read packages. If you don't have one and are getting 401 errors during installation you can set up a token here: https://github.com/settings/tokens/new and add the following to `~/.npmrc`:
 ```sh
 //npm.pkg.github.com/:_authToken=YOUR_SUPER_SECRET_TOKEN_HERE
 ```
