@@ -18,15 +18,16 @@ export interface RateJokeFormProps {
 
 interface RatingOption {
   label: string;
+  title: string;
   value: number;
 }
 
 const ratingOptions: Array<RatingOption> = [
-  { label: "Pain", value: 0 },
-  { label: "Groan", value: 1 },
-  { label: "Eye roll", value: 2 },
-  { label: "Chuckle", value: 3 },
-  { label: "Knee Slap", value: 4 },
+  { label: "😖", title: "Pain", value: 0 },
+  { label: "😩", title: "Groan", value: 1 },
+  { label: "🙄", title: "Eye Roll", value: 2 },
+  { label: "🤭", title: "Chuckle", value: 3 },
+  { label: "😆", title: "Knee Slap", value: 4 },
 ];
 
 export const RateJokeForm: React.FC<RateJokeFormProps> = ({ jokeId, className, myRating, myJoke, ratings }) => {
@@ -82,11 +83,46 @@ const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({
         className="peer absolute z-20 opacity-0"
       />
       <input type="hidden" value={jokeId} name="jokeId" />
-      <div className="h-full w-full rounded bg-primary-50 py-1 px-2 text-sm text-primary-500 peer-checked:bg-primary-500 peer-checked:text-white peer-disabled:bg-sky-300 peer-disabled:text-white">
-        {matchedRating && matchedRating.count > 0 && (
-          <span className="mr-2 text-xs font-medium text-primary-900">{matchedRating.count}</span>
-        )}
-        <span>{ratingOption.label}</span>
+      <div
+        className="
+          flex
+          items-center
+          font-bold
+          text-primary-500
+          transition
+          duration-300
+          ease-elastic
+
+          before:absolute
+          before:right-full
+          before:h-6
+          before:w-6
+          before:text-center
+          before:content-[attr(data-count)]
+
+          after:absolute
+          after:-inset-x-1/2
+          after:bottom-10
+          after:rounded
+          after:bg-primary-500
+          after:text-center
+          after:text-white
+
+          hover:scale-125
+
+          hover:after:p-1
+          hover:after:content-[attr(data-title)]
+
+          peer-checked:before:rounded-full
+          peer-checked:before:bg-primary-500
+          peer-checked:before:text-white
+
+          peer-disabled:grayscale
+        "
+        data-count={matchedRating && matchedRating.count > 0 ? matchedRating.count : ""}
+        data-title={ratingOption.title}
+      >
+        <span className="text-3xl">{ratingOption.label}</span>
       </div>
     </label>
   );
