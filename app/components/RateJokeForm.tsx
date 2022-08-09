@@ -101,8 +101,10 @@ const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({
           before:content-[attr(data-count)]
 
           after:absolute
-          after:-inset-x-1/2
           after:bottom-10
+          after:left-1/2
+          after:-translate-x-1/2
+          after:whitespace-nowrap
           after:rounded
           after:bg-primary-500
           after:text-center
@@ -110,7 +112,8 @@ const JokeRatingFormGroup: React.FC<JokeRatingFormGroupProps> = ({
 
           hover:scale-125
 
-          hover:after:p-1
+          hover:after:px-2
+          hover:after:py-1
           hover:after:content-[attr(data-title)]
 
           peer-checked:before:rounded-full
