@@ -1,9 +1,9 @@
-import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { useFetchers } from "@remix-run/react";
 import { useMemo } from "react";
 import { JOKE_RATING_FORM_ACTION_KEY } from "~/components/RateJokeForm";
+import type { SerializedJokes } from "~/routes/__index";
 
-export function useOptimisticJokes(jokes: Array<JokeQueueJoke>) {
+export function useOptimisticJokes(jokes: SerializedJokes) {
   const fetchers = useFetchers();
   const ratingsFetchers = useMemo(() => {
     return fetchers.filter((f) => f.submission?.action.endsWith(JOKE_RATING_FORM_ACTION_KEY));

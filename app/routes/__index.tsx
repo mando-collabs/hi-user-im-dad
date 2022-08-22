@@ -1,24 +1,19 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import type { LoaderArgs, MetaFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { authenticator } from "~/utils/auth.server";
 import { Outlet, useLoaderData, useTransition } from "@remix-run/react";
 import { Header } from "~/components/Header";
-import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { JokeService } from "~/services/joke-service.server";
 import { JokeQueue } from "~/components/JokeQueue";
 import React from "react";
 import { Tabs } from "~/components/Tabs";
 import { PageLoader } from "~/components/PageLoader";
+import type { UseDataFunctionReturn } from "@remix-run/react/dist/components";
 
-export interface RootLoaderData {
-  userId: number;
-  username: string;
-  profileImgUrl: string | null;
-  jokeQueueJokes: JokeQueueJoke[];
-  myJokesCount: number;
-}
+export type RootLoaderData = UseDataFunctionReturn<typeof loader>;
+export type SerializedJokes = RootLoaderData["jokeQueueJokes"];
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const user = await authenticator.isAuthenticated(request);
 
   if (!user) {
@@ -29,15 +24,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   const myJokesCount = await jokeService.getMyJokesCount();
   const jokeQueueJokes = await jokeService.getJokeQueueJokes();
 
-  const data: RootLoaderData = {
+  return json({
     userId: user.id,
     username: user.displayName,
     profileImgUrl: user.profileImgUrl,
     jokeQueueJokes,
     myJokesCount,
-  };
-
-  return data;
+  });
 };
 
 export const meta: MetaFunction = () => {
@@ -48,7 +41,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function __index() {
-  const { username, profileImgUrl, jokeQueueJokes, myJokesCount, userId } = useLoaderData<RootLoaderData>();
+  const { username, profileImgUrl, jokeQueueJokes, myJokesCount, userId } = useLoaderData<typeof loader>();
   const { type, state } = useTransition();
 
   return (

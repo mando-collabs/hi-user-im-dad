@@ -1,14 +1,12 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import type { JokeQueueJoke } from "~/services/joke-service.server";
+import { json, redirect } from "@remix-run/node";
 import { JokeService } from "~/services/joke-service.server";
 import { assertUser } from "~/utils/auth.server";
-import { redirect } from "@remix-run/node";
 import { pusher } from "~/utils/pusher.server";
 import { JokeEvent, JOKES_CHANNEL } from "~/types/JokeEvent";
+import type { UseDataFunctionReturn } from "@remix-run/react/dist/components";
 
-export interface QueuedJokesLoaderData {
-  jokes: JokeQueueJoke[];
-}
+export type QueuedJokesLoaderData = UseDataFunctionReturn<typeof loader>;
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await assertUser(request);
@@ -16,9 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const jokeService = new JokeService(user);
   const jokes = await jokeService.getJokeQueueJokes();
 
-  const data: QueuedJokesLoaderData = { jokes };
-
-  return data;
+  return json({ jokes });
 };
 
 export const action: ActionFunction = async ({ request }) => {
