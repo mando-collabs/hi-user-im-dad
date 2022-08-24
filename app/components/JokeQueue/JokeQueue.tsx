@@ -3,7 +3,6 @@ import { PlaceholderAvatar } from "~/components/PlaceholderAvatar";
 import classNames from "classnames";
 import { Button, IconButton } from "@mando-collabs/tailwind-ui";
 import { CheckIcon, ReplyIcon } from "@heroicons/react/outline";
-import type { JokeQueueJoke } from "~/services/joke-service.server";
 import { Form, useFetcher } from "@remix-run/react";
 import type { QueuedJokesLoaderData } from "~/routes/api/jokes/queued";
 import { usePusherEvent } from "~/hooks/use-pusher-event";
@@ -14,13 +13,14 @@ import { RateJokeForm } from "~/components/RateJokeForm";
 import type { RateEventPayload } from "~/types/RateEvent";
 import { RATINGS_CHANNEL_NAME } from "~/types/RateEvent";
 import { useOptimisticJokes } from "~/components/JokeQueue/use-optimistic-jokes";
+import type { SerializedJokes } from "~/routes/__index";
 
 export interface JokeQueueProps {
-  jokes: JokeQueueJoke[];
+  jokes: SerializedJokes;
   userId: number;
 }
 
-function useFetchJokesQueue(ssrJokes: JokeQueueJoke[]) {
+function useFetchJokesQueue(ssrJokes: SerializedJokes) {
   const [baseJokes, setJokes] = React.useState(ssrJokes);
 
   const fetcher = useFetcher<QueuedJokesLoaderData>();
