@@ -42,7 +42,7 @@
     "react-use": "17.4.0",
     "remix-auth": "3.3.0",
     "remix-auth-github": "1.1.1",
-    "remix-utils": "3.3.0",
+    "remix-utils": "5.2.1",
     "remix-validated-form": "4.5.7",
     "zod": "3.19.1",
     "zod-form-data": "1.2.2"
