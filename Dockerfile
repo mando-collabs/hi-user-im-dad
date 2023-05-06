@@ -1,5 +1,5 @@
 # base node image
-FROM node:16-bullseye-slim as base
+FROM node:20-bullseye-slim as base
 
 ARG NODE_AUTH_TOKEN
 
