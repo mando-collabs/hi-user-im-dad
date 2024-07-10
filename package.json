@@ -23,7 +23,7 @@
     "lint:js:fix": "eslint . --cache --fix"
   },
   "dependencies": {
-    "@heroicons/react": "1.0.6",
+    "@heroicons/react": "2.1.5",
     "@icons-pack/react-simple-icons": "5.11.0",
     "@mando-collabs/tailwind-ui": "1.15.2",
     "@netlify/functions": "1.4.0",
