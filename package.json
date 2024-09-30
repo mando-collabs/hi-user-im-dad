@@ -26,7 +26,7 @@
     "@heroicons/react": "1.0.6",
     "@icons-pack/react-simple-icons": "5.11.0",
     "@mando-collabs/tailwind-ui": "1.15.2",
-    "@netlify/functions": "1.4.0",
+    "@netlify/functions": "2.8.2",
     "@prisma/client": "4.6.0",
     "@remix-run/node": "1.6.8",
     "@remix-run/react": "1.6.8",
