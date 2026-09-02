@@ -54,7 +54,7 @@
     "@types/pusher-js": "5.1.0",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
-    "eslint": "8.31.0",
+    "eslint": "8.57.1",
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-tailwindcss": "3.8.0",
